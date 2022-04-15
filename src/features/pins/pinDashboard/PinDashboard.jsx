@@ -1,7 +1,8 @@
 import React from 'react';
+import PinList from './PinList';
 
 function PinDashboard() {
-  return <div>PinDashboard</div>;
+  return <PinList />;
 }
 
 export default PinDashboard;

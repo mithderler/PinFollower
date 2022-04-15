@@ -9,6 +9,8 @@ module.exports = {
         main: '#fc5b62',
         second: '#0054a6',
         formborder: '#ddd',
+        google: '#4285f4',
+        facebook: '#3b5998',
       },
     },
   },
