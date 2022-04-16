@@ -4,7 +4,8 @@ import LoginPage from '../../features/auth/LoginPage';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
-  const authenticated = false;
+  const authenticated = true;
+
   return (
     <>
       {authenticated && (

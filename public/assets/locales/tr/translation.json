@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "search": "Ara",
+    "navlinks": {
+      "explore": "Keşfet",
+      "sign_in": "Giriş Yap",
+      "sign_up": "Kayıt Ol"
+    }
+  }
+}
