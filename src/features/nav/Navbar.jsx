@@ -45,7 +45,10 @@ function Navbar() {
               name={t('navbar.navlinks.sign_in')}
               link='/users/sign_in'
             />
-            <Navlink name={t('navbar.navlinks.sign_up')} />
+            <Navlink
+              name={t('navbar.navlinks.sign_up')}
+              link='/users/sign_up'
+            />
             <button onClick={() => changeLanguage('en')}>EN</button>{' '}
             <button onClick={() => changeLanguage('tr')}>TR</button>
           </ul>

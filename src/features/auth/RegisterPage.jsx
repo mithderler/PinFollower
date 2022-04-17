@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { APP_TRADEMARK, CURRENT_YEAR } from '../../app/layout/AppConstants';
-import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import SocialLogin from './SocialLogin';
 
-function LoginPage() {
+function RegisterPage() {
   const { t } = useTranslation();
 
   return (
@@ -16,26 +16,27 @@ function LoginPage() {
           <div className='text-3xl text-center text-main font-medium tracking-tighter py-6'>
             <Link to={'/'}>{APP_TRADEMARK}</Link>
           </div>
-          <p className='text-center text-2xl mb-3'>{t('login_page.title')}</p>
+          <p className='text-center text-2xl mb-3'>{t('sign_up_page.title')}</p>
           <hr className='' />
           <div className='flex flex-col w-full px-8'>
             <SocialLogin />
             <div className='w-full flex items-center justify-between py-4'>
               <hr className='w-full bg-gray-600' />
-              <p className='italic leading-4 px-2.5'>{t('login_page.or')}</p>
+              <p className='italic leading-4 px-2.5'>{t('sign_up_page.or')}</p>
               <hr className='w-full bg-gray-600' />
             </div>
-            <LoginForm />
+            <RegisterForm />
             <div className='flex items-center justify-center mt-2'>
-              <span>{t('login_page.dont_have_an_account')}</span>
-              <span className='text-main font-semibold ml-2'>
-                {t('login_page.register')}
+              <span className='text-center'>
+                Hesap oluşturarak, <LinkStyle text='Gizlilik Politikası' />,{' '}
+                <LinkStyle text='Kullanım Koşulları' /> ve{' '}
+                <LinkStyle text='Çerez Politikası' /> kabul etmiş sayılırsınız
               </span>
             </div>
-            <div className='relative flex items-center justify-center mt-3'>
-              <span>{t('login_page.confirmation_instruction')}</span>
+            <div className='relative flex items-center justify-center mt-8'>
+              <span>{t('sign_up_page.already_have_account')}</span>
               <span className='text-main font-semibold ml-2'>
-                {t('login_page.send_again')}
+                {t('sign_up_page.sign_in')}
               </span>
             </div>
             <div className='flex items-center justify-center text-gray-500 font-medium my-10'>
@@ -50,4 +51,8 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+const LinkStyle = ({ text }) => {
+  return <span className='text-main font-semibold ml-2'>{text}</span>;
+};
+
+export default RegisterPage;

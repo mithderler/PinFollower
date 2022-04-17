@@ -6,5 +6,34 @@
       "sign_in": "Giriş Yap",
       "sign_up": "Kayıt Ol"
     }
+  },
+  "login_page": {
+    "title": "Giriş Yap",
+    "or": "Veya",
+    "dont_have_an_account": "Hesabınız yok mu?",
+    "register": "Kayıt Ol",
+    "confirmation_instruction": "Onaylama talimatları almadınız mı?",
+    "send_again": "Yeniden gönder"
+  },
+  "login_form": {
+    "email_or_username": "E-posta ya da Kullanıcı adı",
+    "password": "Parola",
+    "remember_me": "Beni hatırla",
+    "forgot_password": "Parolanı mı unuttun?",
+    "sign_in": "Giriş Yap"
+  },
+  "sign_up_page": {
+    "title": "Kayıt Ol",
+    "or": "Veya",
+    "already_have_account": "Hesabınız var mı?",
+    "sign_in": "Giriş Yap"
+  },
+  "sign_up_form": {
+    "email": "Email",
+    "username": "Kullanıcı adı",
+    "password": "Parola",
+    "password_confirm": "Parola (Tekrar)",
+    "min_6_chars": "Minimum 6 karakter",
+    "register": "Kayıt Ol"
   }
 }

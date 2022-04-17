@@ -1,9 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 function LoginForm() {
+  const { t } = useTranslation();
   return (
     <form className='w-full'>
       <div className='w-full flex flex-col mb-4'>
         <label htmlFor='email' className='mb-2 font-medium'>
-          E-posta ya da Kullanıcı adı
+          {t('login_form.email_or_username')}
         </label>
         <input
           id='email'
@@ -14,7 +17,7 @@ function LoginForm() {
       </div>
       <div className='w-full flex flex-col mb-4'>
         <label htmlFor='password' className='mb-2 font-medium'>
-          Parola
+          {t('login_form.password')}
         </label>
         <input
           id='password'
@@ -25,13 +28,13 @@ function LoginForm() {
       </div>
       <div className='flex items-center justify-between mb-6'>
         <div>
-          <input id='remember-me' type='checkbox' />{' '}
-          <label htmlFor='remember-me'>Beni hatırla</label>
+          <input id='remember_me' type='checkbox' />{' '}
+          <label htmlFor='remember_me'>{t('login_form.remember_me')}</label>
         </div>
-        <div>Parolanı mı unuttun?</div>
+        <div>{t('login_form.forgot_password')}</div>
       </div>
       <button className='w-full bg-main text-white font-bold hover:bg-second transition ease-in delay-100 rounded-full py-3.5 px-8 my-4'>
-        Giriş Yap
+        {t('login_form.sign_in')}
       </button>
     </form>
   );
