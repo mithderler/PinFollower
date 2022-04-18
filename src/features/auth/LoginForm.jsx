@@ -1,9 +1,21 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { authActions } from './authReducer';
 
 function LoginForm() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(authActions.login());
+    navigate('/');
+  };
+
   return (
-    <form className='w-full'>
+    <form className='w-full' onSubmit={handleLogin}>
       <div className='w-full flex flex-col mb-4'>
         <label htmlFor='email' className='mb-2 font-medium'>
           {t('login_form.email_or_username')}

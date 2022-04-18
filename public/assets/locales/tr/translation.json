@@ -4,8 +4,10 @@
     "navlinks": {
       "explore": "Keşfet",
       "sign_in": "Giriş Yap",
-      "sign_up": "Kayıt Ol"
-    }
+      "sign_up": "Kayıt Ol",
+      "home": "Anasayfa"
+    },
+    "create_pin": "Pin Oluştur"
   },
   "login_page": {
     "title": "Giriş Yap",

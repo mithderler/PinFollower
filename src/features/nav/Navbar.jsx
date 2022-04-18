@@ -1,19 +1,14 @@
 import React from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { VscSearch } from 'react-icons/vsc';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
-
-function Navlink({ name, link = '' }) {
-  return (
-    <li className='cursor-pointer transition ease-in delay-100 hover:text-main'>
-      <Link to={link}>{name}</Link>
-    </li>
-  );
-}
+import SignedOutMenu from './SignedOutMenu';
+import { useSelector } from 'react-redux';
+import SignedInMenu from './SignedInMenu';
 
 function Navbar() {
+  const authenticated = useSelector((state) => state.auth.authenticated);
   const { t, i18n } = useTranslation();
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
@@ -37,18 +32,10 @@ function Navbar() {
             <VscSearch className='text-md absolute right-4 top-3' />
           </button>
         </div>
-        <div className='ml-4'>
+        <div className='flex ml-4'>
           <GiHamburgerMenu className='text-3xl  cursor-pointer md:hidden' />
-          <ul className='hidden md:flex md:justify-between md:items-center gap-3'>
-            <Navlink name={t('navbar.navlinks.explore')} link='' />
-            <Navlink
-              name={t('navbar.navlinks.sign_in')}
-              link='/users/sign_in'
-            />
-            <Navlink
-              name={t('navbar.navlinks.sign_up')}
-              link='/users/sign_up'
-            />
+          {authenticated ? <SignedInMenu /> : <SignedOutMenu />}
+          <ul className='ml-7 flex items-center gap-1'>
             <button onClick={() => changeLanguage('en')}>EN</button>{' '}
             <button onClick={() => changeLanguage('tr')}>TR</button>
           </ul>

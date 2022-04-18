@@ -4,8 +4,10 @@
     "navlinks": {
       "explore": "Explore",
       "sign_in": "Sign In",
-      "sign_up": "Sign Up"
-    }
+      "sign_up": "Sign Up",
+      "home": "Home"
+    },
+    "create_pin": "Create Pin"
   },
   "login_page": {
     "title": "Sign In",
