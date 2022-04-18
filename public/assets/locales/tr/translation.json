@@ -42,5 +42,12 @@
     "profile": "Profil",
     "settings": "Ayarlar",
     "sign_out": "Çıkış Yap"
+  },
+  "footer": {
+    "about": "Hakkında",
+    "follow_us": "Bizi takip edin",
+    "contact_with_us": "Bizimle iletişime geçin",
+    "terms_of_use": "Kullanım Koşulları",
+    "privacy_policy": "Gizlilik Politikası"
   }
 }

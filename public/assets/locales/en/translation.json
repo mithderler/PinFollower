@@ -42,5 +42,12 @@
     "profile": "Profile",
     "settings": "Settings",
     "sign_out": "Sign Out"
+  },
+  "footer": {
+    "about": "About",
+    "follow_us": "Follow us",
+    "contact_with_us": "Contact with us",
+    "terms_of_use": "Terms of Use",
+    "privacy_policy": "Privacy Policy"
   }
 }

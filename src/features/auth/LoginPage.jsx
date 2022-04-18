@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { APP_TRADEMARK, CURRENT_YEAR } from '../../app/layout/AppConstants';
+import {
+  APP_TRADEMARK,
+  CURRENT_YEAR,
+} from '../../app/common/constants/AppConstants';
 import LoginForm from './LoginForm';
 import SocialLogin from './SocialLogin';
+import useDocTitle from '../../app/hooks/useDocTitle';
 
 function LoginPage() {
   const { t } = useTranslation();
+  useDocTitle(t('navbar.navlinks.sign_in'));
 
   return (
     <div className='flex justify-center bg-white h-full p-4'>
@@ -29,7 +34,7 @@ function LoginPage() {
             <div className='flex items-center justify-center mt-2'>
               <span>{t('login_page.dont_have_an_account')}</span>
               <span className='text-main font-semibold ml-2'>
-                {t('login_page.register')}
+                <Link to='/users/sign_up'>{t('login_page.register')}</Link>
               </span>
             </div>
             <div className='relative flex items-center justify-center mt-3'>

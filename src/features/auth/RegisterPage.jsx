@@ -2,12 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { APP_TRADEMARK, CURRENT_YEAR } from '../../app/layout/AppConstants';
+import {
+  APP_TRADEMARK,
+  CURRENT_YEAR,
+} from '../../app/common/constants/AppConstants';
 import RegisterForm from './RegisterForm';
 import SocialLogin from './SocialLogin';
+import useDocTitle from '../../app/hooks/useDocTitle';
 
 function RegisterPage() {
   const { t } = useTranslation();
+  useDocTitle(t('navbar.navlinks.sign_up'));
 
   return (
     <div className='flex justify-center bg-white h-full p-4'>

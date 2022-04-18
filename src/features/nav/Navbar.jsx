@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Cookies from 'js-cookie';
 import { VscSearch } from 'react-icons/vsc';
 
 import HamburgerMenu from './HamburgerMenu';
@@ -12,11 +11,8 @@ import SignedOutMenu from './SignedOutMenu';
 function Navbar() {
   const { authenticated } = useSelector((state) => state.auth);
   const [openMenu, setOpenMenu] = useState(false);
-  const { t, i18n } = useTranslation();
-  const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
-    Cookies.set('i18next', language, { expires: 7 });
-  };
+  const { t } = useTranslation();
+
   return (
     <div className='fixed h-[60px] w-full flex items-center bg-white'>
       <div className=' sm:container sm:mx-auto w-full  px-4 md:max-w-[1100px] flex justify-between items-center '>
@@ -39,11 +35,6 @@ function Navbar() {
         <HamburgerMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
         {authenticated ? <SignedInMenu /> : <SignedOutMenu />}
-
-        <ul className='ml-7 hidden md:flex items-center gap-1'>
-          <button onClick={() => changeLanguage('en')}>EN</button>{' '}
-          <button onClick={() => changeLanguage('tr')}>TR</button>
-        </ul>
       </div>
     </div>
   );
