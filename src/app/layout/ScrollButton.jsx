@@ -27,7 +27,7 @@ const ScrollButton = () => {
       <BsFillArrowUpCircleFill
         onClick={scrollToTop}
         style={{ display: visible ? 'inline' : 'none' }}
-        className='fixed  z-10 right-6 bottom-6 text-[50px] transition ease-out delay-100 text-gray-600 hover:text-main'
+        className='fixed  z-10 right-6 bottom-6 text-[50px] transition ease-out delay-100 bg-white rounded-full outline-none border-0 text-gray-600 hover:text-main'
       />
     </button>
   );

@@ -37,5 +37,10 @@
     "password_confirm": "Parola (Tekrar)",
     "min_6_chars": "Minimum 6 karakter",
     "register": "Kayıt Ol"
+  },
+  "profile_menu": {
+    "profile": "Profil",
+    "settings": "Ayarlar",
+    "sign_out": "Çıkış Yap"
   }
 }

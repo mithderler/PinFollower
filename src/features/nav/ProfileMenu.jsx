@@ -1,11 +1,18 @@
 import { Fragment } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { Menu, Transition } from '@headlessui/react';
+
+import { authActions } from '../auth/authReducer';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 function ProfileMenu() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+
   return (
     <Menu as='div' className='relative inline-block text-left h-8 w-8'>
       <div>
@@ -29,9 +36,12 @@ function ProfileMenu() {
       >
         <Menu.Items className='origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1'>
-            <MenuItem text='Profile' />
-            <MenuItem text='Settings' />
-            <MenuItem text='Sign Out' onClick={() => alert('hello')} />
+            <MenuItem text={t('profile_menu.profile')} />
+            <MenuItem text={t('profile_menu.settings')} />
+            <MenuItem
+              text={t('profile_menu.sign_out')}
+              onClick={() => dispatch(authActions.logout())}
+            />
           </div>
         </Menu.Items>
       </Transition>

@@ -7,7 +7,7 @@ import RegisterPage from '../../features/auth/RegisterPage';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const authenticated = useSelector((state) => state.auth.authenticated);
+  const { authenticated } = useSelector((state) => state.auth);
 
   return (
     <>

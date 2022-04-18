@@ -37,5 +37,10 @@
     "password_confirm": "Password Confirmation",
     "min_6_chars": "Minimum 6 characters",
     "register": "Register"
+  },
+  "profile_menu": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "sign_out": "Sign Out"
   }
 }
