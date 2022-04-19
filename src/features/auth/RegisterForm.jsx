@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import TextInput from '../../app/common/form/TextInput';
+import { registerInFirebase } from '../../app/firebase/firebaseService';
 
 function RegisterForm() {
   const { t } = useTranslation();
@@ -35,9 +36,10 @@ function RegisterForm() {
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          console.log(values);
+          await registerInFirebase(values);
           setSubmitting(false);
         } catch (error) {
+          console.log('ERRRRRRRR: ', error);
           setErrors({ auth: error.message });
           setSubmitting(false);
         }

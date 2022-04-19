@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 
 import { authActions } from './authReducer';
@@ -12,17 +12,12 @@ function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  //   dispatch(authActions.login());
-  //   navigate('/');
-  // };
-
   return (
     <Formik
       initialValues={{
         username: '',
         password: '',
+        rememberMe: false,
       }}
       validationSchema={Yup.object({
         username: Yup.string()
@@ -31,13 +26,14 @@ function LoginForm() {
         password: Yup.string()
           .required(t('form_validation.required'))
           .min(6, t('form_validation.password_short')),
+        rememberMe: Yup.boolean(),
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
           console.log(values);
           dispatch(authActions.login());
           setSubmitting(false);
-          navigate('/');
+          // navigate('/');
         } catch (error) {
           setErrors({ auth: error.message });
           setSubmitting(false);
@@ -60,8 +56,8 @@ function LoginForm() {
           </div>
           <div className='flex items-center justify-between mb-6'>
             <div>
-              <input name='remember_me' type='checkbox' />{' '}
-              <label htmlFor='remember_me'>{t('login_form.remember_me')}</label>
+              <Field type='checkbox' name='rememberMe' id='rememberMe' />{' '}
+              <label htmlFor='rememberMe'>{t('login_form.remember_me')}</label>
             </div>
             <div>{t('login_form.forgot_password')}</div>
           </div>

@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "firebase": "^9.6.11",
     "formik": "^2.2.9",
     "i18next": "^21.6.16",
     "i18next-browser-languagedetector": "^6.1.4",
@@ -20,6 +21,7 @@
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "react-toastify": "^8.2.0",
     "redux": "^4.1.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
@@ -28,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [
