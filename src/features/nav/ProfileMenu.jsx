@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Menu, Transition } from '@headlessui/react';
+import { toast } from 'react-toastify';
 
 import { authActions } from '../auth/authReducer';
 import { signOutFirebase } from '../../app/firebase/firebaseService';
@@ -19,6 +20,7 @@ function ProfileMenu() {
   async function handlerSignOut() {
     await signOutFirebase();
     dispatch(authActions.signOutUser());
+    toast.success(t('profile_menu.sign_out_success'));
     navigate('/');
   }
 

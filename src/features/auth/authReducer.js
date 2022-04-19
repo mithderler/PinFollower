@@ -1,4 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { onAuthStateChanged } from 'firebase/auth';
+
+import { auth } from '../../app/firebase/config';
 
 const initialState = {
   authenticated: false,
@@ -27,3 +30,23 @@ const authSlice = createSlice({
 
 export const authActions = authSlice.actions;
 export default authSlice.reducer;
+
+export function verifyAuth() {
+  return function (dispatch) {
+    return onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('verify user: ', user);
+        dispatch(authActions.signInUser(user));
+        // const profileRef = getUserProfile(user.uid);
+        // profileRef.onSnapshot((snapshot) => {
+        //   dispatch(listenToCurrentUserProfile(dataFromSnapshot(snapshot)));
+        //   dispatch({ type: APP_LOADED });
+        return;
+      } else {
+        dispatch(authActions.signOutUser());
+        // dispatch({ type: APP_LOADED });
+        console.log('no verify user');
+      }
+    });
+  };
+}

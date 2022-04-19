@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import App from './app/layout/App';
-import store from './app/store/configureStore';
+import configureStore from './app/store/configureStore';
 import './app/common/util/i18n';
 import './index.css';
 
@@ -14,7 +14,7 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <Suspense fallback={loadingMarkup}>
-    <Provider store={store}>
+    <Provider store={configureStore()}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

@@ -44,7 +44,8 @@
   "profile_menu": {
     "profile": "Profile",
     "settings": "Settings",
-    "sign_out": "Sign Out"
+    "sign_out": "Sign Out",
+    "sign_out_success": "Signed Out Successfully"
   },
   "footer": {
     "about": "About",

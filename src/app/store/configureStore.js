@@ -1,9 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../../features/auth/authReducer';
-import uiReducer from '../common/reducers/uiReducer';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
-const store = configureStore({
-  reducer: { auth: authReducer, ui: uiReducer },
-});
+import rootReducer from './rootReducer';
+import { verifyAuth } from '../../features/auth/authReducer';
 
-export default store;
+const configureStore = () => {
+  const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk))
+  );
+
+  store.dispatch(verifyAuth());
+
+  return store;
+};
+
+export default configureStore;

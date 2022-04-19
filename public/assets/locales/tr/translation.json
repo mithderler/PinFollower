@@ -44,7 +44,8 @@
   "profile_menu": {
     "profile": "Profil",
     "settings": "Ayarlar",
-    "sign_out": "Çıkış Yap"
+    "sign_out": "Çıkış Yap",
+    "sign_out_success": "Çıkış Başarılı"
   },
   "footer": {
     "about": "Hakkında",
