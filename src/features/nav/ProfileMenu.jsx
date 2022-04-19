@@ -1,9 +1,11 @@
 import { Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Menu, Transition } from '@headlessui/react';
 
 import { authActions } from '../auth/authReducer';
+import { signOutFirebase } from '../../app/firebase/firebaseService';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -12,6 +14,13 @@ function classNames(...classes) {
 function ProfileMenu() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function handlerSignOut() {
+    await signOutFirebase();
+    dispatch(authActions.signOutUser());
+    navigate('/');
+  }
 
   return (
     <Menu as='div' className='relative inline-block text-left h-8 w-8'>
@@ -40,7 +49,7 @@ function ProfileMenu() {
             <MenuItem text={t('profile_menu.settings')} />
             <MenuItem
               text={t('profile_menu.sign_out')}
-              onClick={() => dispatch(authActions.logout())}
+              onClick={handlerSignOut}
             />
           </div>
         </Menu.Items>

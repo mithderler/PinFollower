@@ -1,5 +1,11 @@
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { toast } from 'react-toastify';
+import { async } from '@firebase/util';
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth';
 
 import { auth } from './config';
 import { setUserProfileData } from './firestoreService';
@@ -16,10 +22,17 @@ export async function registerInFirebase({ email, username, password }) {
       displayName: username,
     });
 
-    console.log(userCredential.user);
-    return await setUserProfileData(userCredential.user);
+    await setUserProfileData(userCredential.user);
+    return await sendEmailVerification(userCredential.user);
   } catch (error) {
-    toast.error(error.message);
     throw error;
   }
+}
+
+export async function signInWithEmail({ email, password }) {
+  return await signInWithEmailAndPassword(auth, email, password);
+}
+
+export async function signOutFirebase() {
+  return await signOut(auth);
 }

@@ -40,9 +40,12 @@ function RegisterPage() {
             </div>
             <div className='relative flex items-center justify-center mt-8'>
               <span>{t('sign_up_page.already_have_account')}</span>
-              <span className='text-main font-semibold ml-2'>
+              <Link to='/users/sign_in'>
+                <LinkStyle text={t('sign_up_page.sign_in')} />
+              </Link>
+              {/* <span className='text-main font-semibold ml-2'>
                 {t('sign_up_page.sign_in')}
-              </span>
+              </span> */}
             </div>
             <div className='flex items-center justify-center text-gray-500 font-medium my-10'>
               <span>©</span>

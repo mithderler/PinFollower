@@ -4,7 +4,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDAJghDPnV9_A-sNoWtrZZQGvbwvXbYA_8',
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: 'pinfollowerr.firebaseapp.com',
   projectId: 'pinfollowerr',
   storageBucket: 'pinfollowerr.appspot.com',

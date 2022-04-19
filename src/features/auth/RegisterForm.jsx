@@ -37,9 +37,11 @@ function RegisterForm() {
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
           await registerInFirebase(values);
+          setErrors({
+            verify: t('sign_up_form.sent_activation_mail'),
+          });
           setSubmitting(false);
         } catch (error) {
-          console.log('ERRRRRRRR: ', error);
           setErrors({ auth: error.message });
           setSubmitting(false);
         }
@@ -76,6 +78,9 @@ function RegisterForm() {
           </div>
           {errors.auth && (
             <div className='text-red-500 text-xs'>{errors.auth}</div>
+          )}
+          {errors.verify && (
+            <div className='text-red-500 text-xs'>{errors.verify}</div>
           )}
           <button
             type='submit'

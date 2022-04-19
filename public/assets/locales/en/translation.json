@@ -22,7 +22,9 @@
     "password": "Password",
     "remember_me": "Remember me",
     "forgot_password": "Forgot your password?",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "sign_in_success": "Signed In Successfully",
+    "activate_your_account": "Activate your account from your e-mail address."
   },
   "sign_up_page": {
     "title": "Sign Up",
@@ -36,7 +38,8 @@
     "password": "Password",
     "password_confirm": "Password Confirmation",
     "min_6_chars": "Minimum 6 characters",
-    "register": "Register"
+    "register": "Register",
+    "sent_activation_mail": "An e-mail has been sent to your e-mail address for activation."
   },
   "profile_menu": {
     "profile": "Profile",

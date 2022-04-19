@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 
 import { authActions } from './authReducer';
 import TextInput from '../../app/common/form/TextInput';
+import { signInWithEmail } from '../../app/firebase/firebaseService';
+import { toast } from 'react-toastify';
 
 function LoginForm() {
   const { t } = useTranslation();
@@ -15,14 +17,14 @@ function LoginForm() {
   return (
     <Formik
       initialValues={{
-        username: '',
+        email: '',
         password: '',
         rememberMe: false,
       }}
       validationSchema={Yup.object({
-        username: Yup.string()
+        email: Yup.string()
           .required(t('form_validation.required'))
-          .min(6, t('form_validation.username_short')),
+          .email(t('form_validation.invalid_email')),
         password: Yup.string()
           .required(t('form_validation.required'))
           .min(6, t('form_validation.password_short')),
@@ -30,10 +32,24 @@ function LoginForm() {
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          console.log(values);
-          dispatch(authActions.login());
+          const { user } = await signInWithEmail(values);
+          if (!user.emailVerified) {
+            setErrors({
+              activation: t('login_form.activate_your_account'),
+            });
+            setSubmitting(false);
+            return;
+          }
+          const userCredential = {
+            email: user.email,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            displayName: user.displayName,
+          };
+          dispatch(authActions.signInUser(userCredential));
+          toast.success(t('login_form.sign_in_success'));
           setSubmitting(false);
-          // navigate('/');
+          navigate('/');
         } catch (error) {
           setErrors({ auth: error.message });
           setSubmitting(false);
@@ -43,10 +59,10 @@ function LoginForm() {
       {({ isSubmitting, isValid, dirty, errors }) => (
         <Form className='w-full'>
           <div className='w-full flex flex-col mb-4'>
-            <label htmlFor='username' className='mb-2 font-medium'>
+            <label htmlFor='email' className='mb-2 font-medium'>
               {t('login_form.email_or_username')}
             </label>
-            <TextInput name='username' type='text' />
+            <TextInput name='email' type='email' />
           </div>
           <div className='w-full flex flex-col mb-4'>
             <label htmlFor='password' className='mb-2 font-medium'>
@@ -63,6 +79,9 @@ function LoginForm() {
           </div>
           {errors.auth && (
             <div className='text-red-500 text-xs'>{errors.auth}</div>
+          )}
+          {errors.activation && (
+            <div className='text-red-500 text-xs'>{errors.activation}</div>
           )}
           <button
             type='submit'

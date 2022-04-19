@@ -22,7 +22,9 @@
     "password": "Parola",
     "remember_me": "Beni hatırla",
     "forgot_password": "Parolanı mı unuttun?",
-    "sign_in": "Giriş Yap"
+    "sign_in": "Giriş Yap",
+    "sign_in_success": "Giriş Başarılı",
+    "activate_your_account": "Hesabınızı mail adresinizden aktif hale getiriniz."
   },
   "sign_up_page": {
     "title": "Kayıt Ol",
@@ -36,7 +38,8 @@
     "password": "Parola",
     "password_confirm": "Parola (Tekrar)",
     "min_6_chars": "Minimum 6 karakter",
-    "register": "Kayıt Ol"
+    "register": "Kayıt Ol",
+    "sent_activation_mail": "Email adresinize aktivasyon için mail gönterilmiştir."
   },
   "profile_menu": {
     "profile": "Profil",
