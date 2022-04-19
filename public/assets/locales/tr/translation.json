@@ -49,5 +49,12 @@
     "contact_with_us": "Bizimle iletişime geçin",
     "terms_of_use": "Kullanım Koşulları",
     "privacy_policy": "Gizlilik Politikası"
+  },
+  "form_validation": {
+    "required": "Zorunlu alan",
+    "invalid_email": "Geçersiz email adresi",
+    "username_short": "Kullanıcı adı çok kısa - en az 6 karakter olmalı",
+    "password_short": "Parola çok kısa - en az 6 karakter olmalı",
+    "password_match": "Parolalar aynı olmalı"
   }
 }

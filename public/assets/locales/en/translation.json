@@ -49,5 +49,12 @@
     "contact_with_us": "Contact with us",
     "terms_of_use": "Terms of Use",
     "privacy_policy": "Privacy Policy"
+  },
+  "form_validation": {
+    "required": "Required field",
+    "invalid_email": "Invalid email address",
+    "username_short": "Username is too short - should be 6 chars minimum",
+    "password_short": "Password is too short - should be 6 chars minimum",
+    "password_match": "Passwords must match"
   }
 }

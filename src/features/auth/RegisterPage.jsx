@@ -15,9 +15,9 @@ function RegisterPage() {
   useDocTitle(t('navbar.navlinks.sign_up'));
 
   return (
-    <div className='flex justify-center bg-white h-full p-4'>
-      <div className='w-full md:max-w-lg mx-auto rounded-xs'>
-        <div className='bg-white h-full'>
+    <div className='signBackground flex justify-center h-full md:p-4'>
+      <div className='w-full md:max-w-xl mx-auto rounded'>
+        <div className='bg-white h-full p-4 md:p-10 rounded'>
           <div className='text-3xl text-center text-main font-medium tracking-tighter py-6'>
             <Link to={'/'}>{APP_TRADEMARK}</Link>
           </div>

@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import jsCookie from 'js-cookie';
 
-console.log('lng: ', jsCookie.get('i18next'));
-
 const initialState = {
   appLanguage: jsCookie.get('i18next') || 'en',
 };

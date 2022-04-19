@@ -1,60 +1,90 @@
 import { useTranslation } from 'react-i18next';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+
+import TextInput from '../../app/common/form/TextInput';
 
 function RegisterForm() {
   const { t } = useTranslation();
+
   return (
-    <form className='w-full'>
-      <div className='w-full flex flex-col mb-4'>
-        <label htmlFor='email' className='mb-2 font-medium'>
-          {t('sign_up_form.email')}
-        </label>
-        <input
-          id='email'
-          type='email'
-          aria-labelledby='email'
-          className='border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline'
-        />
-      </div>
-      <div className='w-full flex flex-col mb-4'>
-        <label htmlFor='email' className='mb-2 font-medium'>
-          {t('sign_up_form.username')}
-        </label>
-        <input
-          id='username'
-          type='text'
-          aria-labelledby='username'
-          className='border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline'
-        />
-      </div>
-      <div className='w-full flex flex-col mb-4'>
-        <label htmlFor='password' className='mb-2 font-medium'>
-          {t('sign_up_form.password')}
-        </label>
-        <input
-          id='password'
-          type='password'
-          aria-labelledby='password'
-          className='border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline'
-        />
-        <p className='text-xs mt-1 text-gray-400'>
-          {t('sign_up_form.min_6_chars')}
-        </p>
-      </div>
-      <div className='w-full flex flex-col mb-4'>
-        <label htmlFor='password' className='mb-2 font-medium'>
-          {t('sign_up_form.password_confirm')}
-        </label>
-        <input
-          id='password2'
-          type='password'
-          aria-labelledby='password2'
-          className='border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline'
-        />
-      </div>
-      <button className='w-full bg-main text-white font-bold hover:bg-second transition ease-in delay-100 rounded-full py-3.5 px-8 my-4'>
-        {t('sign_up_form.register')}
-      </button>
-    </form>
+    <Formik
+      initialValues={{
+        email: '',
+        username: '',
+        password: '',
+        passwordConfirm: '',
+      }}
+      validationSchema={Yup.object({
+        email: Yup.string()
+          .required(t('form_validation.required'))
+          .email(t('form_validation.invalid_email')),
+        username: Yup.string()
+          .required(t('form_validation.required'))
+          .min(6, t('form_validation.username_short')),
+        password: Yup.string()
+          .required(t('form_validation.required'))
+          .min(6, t('form_validation.password_short')),
+        passwordConfirm: Yup.string()
+          .required(t('form_validation.required'))
+          .min(6, t('form_validation.password_short'))
+          .oneOf(
+            [Yup.ref('password'), null],
+            t('form_validation.password_match')
+          ),
+      })}
+      onSubmit={async (values, { setSubmitting, setErrors }) => {
+        try {
+          console.log(values);
+          setSubmitting(false);
+        } catch (error) {
+          setErrors({ auth: error.message });
+          setSubmitting(false);
+        }
+      }}
+    >
+      {({ isSubmitting, isValid, dirty, errors }) => (
+        <Form className='w-full'>
+          <div className='w-full flex flex-col mb-4'>
+            <label htmlFor='email' className='mb-2 font-medium'>
+              {t('sign_up_form.email')}
+            </label>
+            <TextInput name='email' type='email' />
+          </div>
+          <div className='w-full flex flex-col mb-4'>
+            <label htmlFor='email' className='mb-2 font-medium'>
+              {t('sign_up_form.username')}
+            </label>
+            <TextInput name='username' type='text' />
+          </div>
+          <div className='w-full flex flex-col mb-4'>
+            <label htmlFor='password' className='mb-2 font-medium'>
+              {t('sign_up_form.password')}
+            </label>
+            <TextInput name='password' type='password' />
+            <p className='text-xs mt-1 text-gray-400'>
+              {t('sign_up_form.min_6_chars')}
+            </p>
+          </div>
+          <div className='w-full flex flex-col mb-4'>
+            <label htmlFor='password' className='mb-2 font-medium'>
+              {t('sign_up_form.password_confirm')}
+            </label>
+            <TextInput name='passwordConfirm' type='password' />
+          </div>
+          {errors.auth && (
+            <div className='text-red-500 text-xs'>{errors.auth}</div>
+          )}
+          <button
+            type='submit'
+            className='w-full bg-main disabled:bg-gray-300 text-white font-bold hover:bg-second transition ease-in delay-100 rounded-full py-3.5 px-8 my-4'
+            disabled={!isValid || !dirty || isSubmitting}
+          >
+            {t('sign_up_form.register')}
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 }
 
