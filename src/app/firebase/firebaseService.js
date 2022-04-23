@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { auth } from './config';
+import { auth } from './firebase';
 import { setUserProfileData } from './firestoreService';
 
 export async function registerInFirebase({ email, username, password }) {
