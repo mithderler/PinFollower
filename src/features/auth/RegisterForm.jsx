@@ -36,7 +36,7 @@ function RegisterForm() {
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          await registerInFirebase(values);
+          // await registerInFirebase(values);
           setErrors({
             verify: t('sign_up_form.sent_activation_mail'),
           });
@@ -53,7 +53,7 @@ function RegisterForm() {
             <label htmlFor='email' className='mb-2 font-medium'>
               {t('sign_up_form.email')}
             </label>
-            <TextInput name='email' type='email' />
+            <TextInput name='email' type='email' id='email' />
           </div>
           <div className='w-full flex flex-col mb-4'>
             <label htmlFor='email' className='mb-2 font-medium'>
@@ -65,7 +65,7 @@ function RegisterForm() {
             <label htmlFor='password' className='mb-2 font-medium'>
               {t('sign_up_form.password')}
             </label>
-            <TextInput name='password' type='password' />
+            <TextInput name='password' type='password' id='password' />
             <p className='text-xs mt-1 text-gray-400'>
               {t('sign_up_form.min_6_chars')}
             </p>

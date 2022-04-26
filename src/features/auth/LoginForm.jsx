@@ -57,18 +57,22 @@ function LoginForm() {
       }}
     >
       {({ isSubmitting, isValid, dirty, errors }) => (
-        <Form className='w-full'>
+        <Form className='w-full' name='loginForm'>
           <div className='w-full flex flex-col mb-4'>
             <label htmlFor='email' className='mb-2 font-medium'>
               {t('login_form.email_or_username')}
             </label>
-            <TextInput name='email' type='email' />
+            <TextInput name='email' type='email' id='email' />
           </div>
           <div className='w-full flex flex-col mb-4'>
-            <label htmlFor='password' className='mb-2 font-medium'>
+            <label
+              htmlFor='password'
+              className='mb-2 font-medium'
+              data-testid='password'
+            >
               {t('login_form.password')}
             </label>
-            <TextInput name='password' type='password' />
+            <TextInput name='password' type='password' id='password' />
           </div>
           <div className='flex items-center justify-between mb-6'>
             <div>

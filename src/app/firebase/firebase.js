@@ -26,10 +26,10 @@ function connectToEmulators({ auth, firestore }) {
 
 export function getFirebase() {
   const services = initializeServices();
-  if (!services.isConfigured) {
-    connectToEmulators(services);
-    enableMultiTabIndexedDbPersistence(services.firestore);
-  }
+  // if (!services.isConfigured) {
+  // connectToEmulators(services);
+  // enableMultiTabIndexedDbPersistence(services.firestore);
+  // }
   return services;
 }
 
