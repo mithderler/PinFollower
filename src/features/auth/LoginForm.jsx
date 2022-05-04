@@ -10,7 +10,7 @@ import TextInput from '../../app/common/form/TextInput';
 import { signInWithEmail } from '../../app/firebase/firebaseService';
 import { toast } from 'react-toastify';
 
-function LoginForm() {
+function LoginForm({ onSubmit }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ function LoginForm() {
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
+          onSubmit(values);
           const { user } = await signInWithEmail(values);
           // if (!user.emailVerified) {
           //   setErrors({

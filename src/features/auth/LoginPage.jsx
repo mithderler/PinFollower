@@ -30,7 +30,11 @@ function LoginPage() {
               <p className='italic leading-4 px-2.5'>{t('login_page.or')}</p>
               <hr className='w-full bg-gray-600' />
             </div>
-            <LoginForm />
+            <LoginForm
+              onSubmit={(values) => {
+                console.log('Form Submitted', values);
+              }}
+            />
             <div className='flex items-center justify-center mt-2'>
               <span>{t('login_page.dont_have_an_account')}</span>
               <span className='text-main font-semibold ml-2'>

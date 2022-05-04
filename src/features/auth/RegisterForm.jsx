@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import TextInput from '../../app/common/form/TextInput';
 import { registerInFirebase } from '../../app/firebase/firebaseService';
 
-function RegisterForm() {
+function RegisterForm({ onSubmit }) {
   const { t } = useTranslation();
 
   return (
@@ -37,6 +37,7 @@ function RegisterForm() {
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
           // await registerInFirebase(values);
+          onSubmit(values);
           setErrors({
             verify: t('sign_up_form.sent_activation_mail'),
           });
@@ -53,28 +54,32 @@ function RegisterForm() {
             <label htmlFor='email' className='mb-2 font-medium'>
               {t('sign_up_form.email')}
             </label>
-            <TextInput name='email' type='email' id='email' />
+            <TextInput name='email' type='email' data-testid='email' />
           </div>
           <div className='w-full flex flex-col mb-4'>
             <label htmlFor='email' className='mb-2 font-medium'>
               {t('sign_up_form.username')}
             </label>
-            <TextInput name='username' type='text' />
+            <TextInput name='username' type='text' data-testid='username' />
           </div>
           <div className='w-full flex flex-col mb-4'>
             <label htmlFor='password' className='mb-2 font-medium'>
               {t('sign_up_form.password')}
             </label>
-            <TextInput name='password' type='password' id='password' />
+            <TextInput name='password' type='password' data-testid='password' />
             <p className='text-xs mt-1 text-gray-400'>
               {t('sign_up_form.min_6_chars')}
             </p>
           </div>
           <div className='w-full flex flex-col mb-4'>
-            <label htmlFor='password' className='mb-2 font-medium'>
+            <label htmlFor='passwordConfirm' className='mb-2 font-medium'>
               {t('sign_up_form.password_confirm')}
             </label>
-            <TextInput name='passwordConfirm' type='password' />
+            <TextInput
+              name='passwordConfirm'
+              type='password'
+              data-testid='passwordConfirm'
+            />
           </div>
           {errors.auth && (
             <div className='text-red-500 text-xs'>{errors.auth}</div>

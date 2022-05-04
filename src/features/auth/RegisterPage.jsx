@@ -30,7 +30,11 @@ function RegisterPage() {
               <p className='italic leading-4 px-2.5'>{t('sign_up_page.or')}</p>
               <hr className='w-full bg-gray-600' />
             </div>
-            <RegisterForm />
+            <RegisterForm
+              onSubmit={(values) => {
+                console.log('Form submitted: ', values);
+              }}
+            />
             <div className='flex items-center justify-center mt-2'>
               <span className='text-center'>
                 Hesap oluşturarak, <LinkStyle text='Gizlilik Politikası' />,{' '}
