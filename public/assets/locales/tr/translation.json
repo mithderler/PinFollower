@@ -18,7 +18,7 @@
     "send_again": "Yeniden gönder"
   },
   "login_form": {
-    "email_or_username": "E-posta ya da Kullanıcı adı",
+    "email_or_username": "E-posta",
     "password": "Parola",
     "remember_me": "Beni hatırla",
     "forgot_password": "Parolanı mı unuttun?",

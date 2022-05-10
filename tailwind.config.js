@@ -1,6 +1,9 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],

@@ -1,11 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+
 import useDocTitle from '../../../app/hooks/useDocTitle';
-import ScrollButton from '../../../app/layout/ScrollButton';
-import Footer from '../../footer/Footer';
-import Navbar from '../../nav/Navbar';
 import PinList from './PinList';
+import SignedInUserLayout from '../../../app/layout/SignedInUserLayout';
 
 function PinDashboard() {
   const { authenticated } = useSelector((state) => state.auth);
@@ -17,14 +16,9 @@ function PinDashboard() {
   useDocTitle(title);
 
   return (
-    <div className='bg-[#f8f8f8]'>
-      <Navbar />
-      <div className='container mx-auto max-w-[600px] px-4 pt-24'>
-        <PinList />
-        <ScrollButton />
-      </div>
-      <Footer />
-    </div>
+    <SignedInUserLayout>
+      <PinList />
+    </SignedInUserLayout>
   );
 }
 

@@ -18,7 +18,7 @@
     "send_again": "Resend"
   },
   "login_form": {
-    "email_or_username": "Email or Username",
+    "email_or_username": "Email",
     "password": "Password",
     "remember_me": "Remember me",
     "forgot_password": "Forgot your password?",

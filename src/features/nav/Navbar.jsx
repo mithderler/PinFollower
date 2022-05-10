@@ -14,7 +14,7 @@ function Navbar() {
   const { t } = useTranslation();
 
   return (
-    <div className='fixed h-[60px] w-full flex items-center bg-white'>
+    <div className='fixed h-[60px] w-full flex items-center bg-white z-10'>
       <div className=' sm:container sm:mx-auto w-full  px-4 md:max-w-[1100px] flex justify-between items-center '>
         <div className='h-9 text-3xl text-main tracking-tighter mr-4'>
           <Link to='/'>PinFollower</Link>

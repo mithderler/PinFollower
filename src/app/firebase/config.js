@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-  apiKey: 'AIzaSyDAJghDPnV9_A-sNoWtrZZQGvbwvXbYA_8',
+  apiKey: process.env.REACT_APP_API_KEY,
   authDomain: 'pinfollowerr.firebaseapp.com',
   projectId: 'pinfollowerr',
   storageBucket: 'pinfollowerr.appspot.com',

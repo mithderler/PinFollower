@@ -15,11 +15,16 @@ module.exports = {
     "plugins": [
         "react"
     ],
+    "env": {
+        "browser": true,
+        "node": true
+    },
     "rules": {
         "no-unused-vars": "off",
         "no-useless-catch": "off",
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/display-name": "off"
     }
 }

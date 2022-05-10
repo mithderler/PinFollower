@@ -4,9 +4,12 @@ import * as Yup from 'yup';
 
 import TextInput from '../../app/common/form/TextInput';
 import { registerInFirebase } from '../../app/firebase/firebaseService';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function RegisterForm({ onSubmit }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -36,12 +39,14 @@ function RegisterForm({ onSubmit }) {
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          // await registerInFirebase(values);
+          await registerInFirebase(values);
           onSubmit(values);
           setErrors({
             verify: t('sign_up_form.sent_activation_mail'),
           });
+          toast.success(t('sign_up_form.sent_activation_mail'));
           setSubmitting(false);
+          navigate('/users/sign_in');
         } catch (error) {
           setErrors({ auth: error.message });
           setSubmitting(false);

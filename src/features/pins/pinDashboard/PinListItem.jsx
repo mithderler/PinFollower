@@ -23,7 +23,7 @@ function PinListItem() {
           <span> Ihlara/Güzelyurt/Aksaray, Türkiye</span>
         </div>
         <img
-          className='w-full h-80 pt-4 object-cover'
+          className='w-full h-80 mt-4 object-cover rounded-xl'
           src='/assets/img/florya.jpg'
           alt='pin_image'
         />

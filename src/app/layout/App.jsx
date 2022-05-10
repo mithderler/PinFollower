@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import LoginPage from '../../features/auth/LoginPage';
 import PinDashboard from '../../features/pins/pinDashboard/PinDashboard';
 import RegisterPage from '../../features/auth/RegisterPage';
+import NewPinPage from '../../features/pins/newPin/NewPinPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/' element={<PinDashboard />} />
         <Route path='users/sign_in' element={<LoginPage />} />
         <Route path='users/sign_up' element={<RegisterPage />} />
+        <Route path='pins/new' element={<NewPinPage />} />
       </Routes>
     </>
   );
