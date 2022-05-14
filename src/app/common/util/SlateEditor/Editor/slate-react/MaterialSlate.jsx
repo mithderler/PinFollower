@@ -1,26 +1,26 @@
-import React from 'react'
-import { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Slate } from 'slate-react'
-import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Slate } from 'slate-react';
+import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: theme.shape.borderRadius,
-    border: '1px solid',
-    borderColor: theme.palette.grey[400],
-    '&:hover': {
-      borderColor: theme.palette.text.primary,
-    },
+    // border: '1px solid',
+    // borderColor: theme.palette.grey[400],
+    // '&:hover': {
+    //   borderColor: theme.palette.text.primary,
+    // },
   },
-  focused: {
-    borderColor: theme.palette.primary.main,
-    '&:hover': {
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}))
+  // focused: {
+  //   borderColor: theme.palette.primary.main,
+  //   '&:hover': {
+  //     borderColor: theme.palette.primary.main,
+  //   },
+  // },
+}));
 
 /**
  * Rich Slate
@@ -37,20 +37,25 @@ export default function MaterialSlate({
   className,
   focusClassName,
 }) {
-  const classes = useStyles()
-  const [isFocused, setIsFocused] = useState(false)
+  const classes = useStyles();
+  const [isFocused, setIsFocused] = useState(false);
   return (
     <Box
       onBlur={() => setIsFocused(false)}
       onFocus={() => setIsFocused(true)}
-      className={`${classes.root} ${isFocused &&
-        (focusClassName ? focusClassName : classes.focused)} ${className}`}
+      className={`${classes.root} ${
+        isFocused && (focusClassName ? focusClassName : classes.focused)
+      } ${className}`}
     >
-      <Slate value={value} editor={editor} onChange={value => onChange(value)}>
+      <Slate
+        value={value}
+        editor={editor}
+        onChange={(value) => onChange(value)}
+      >
         {children}
       </Slate>
     </Box>
-  )
+  );
 }
 
 MaterialSlate.propTypes = {
@@ -64,4 +69,4 @@ MaterialSlate.propTypes = {
   className: PropTypes.string,
   /** className to apply when the editor has focus */
   focusClassName: PropTypes.string,
-}
+};

@@ -1,11 +1,12 @@
 import React from 'react';
-import { useField } from 'formik';
+import { useField, Field } from 'formik';
 
 function TextArea({ ...props }) {
   const [field, meta] = useField(props);
   return (
     <>
-      <textarea
+      <Field
+        as='textarea'
         {...field}
         {...props}
         className='border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline'

@@ -1,16 +1,16 @@
 /* global google */
-import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
+import ButtonMain from '../../../app/common/buttons/ButtonMain';
+import FileInput from './FileInput';
+import GeoAddrSearch from './googleMap/GeoAddrSearch';
+import HoveringTextEditor from '../../../app/common/form/FormRichText';
+import PhotoCropper from './photoCropper/PhotoCropper';
+import PinMap from './googleMap/PinMap';
 import TextArea from '../../../app/common/form/TextArea';
 import TextInput from '../../../app/common/form/TextInput';
-import FileInput from './FileInput';
-import HoveringTextEditor from '../../../app/common/form/FormRichText';
-import ButtonMain from '../../../app/common/buttons/ButtonMain';
-import PinMap from './googleMap/PinMap';
-import GeoAddrSearch from './googleMap/GeoAddrSearch';
-import PhotoCropper from './photoCropper/PhotoCropper';
 
 function NewPinForm() {
   const fileTypes = ['image/png', 'image/jpeg'];
@@ -58,8 +58,8 @@ function NewPinForm() {
           </Label>
           <Label title='Address' htmlFor='location'>
             {/* <GeoAddrSearch name='location' placeholder='Search address' /> */}
+            <PinMap name='location' />
           </Label>
-          {/* <PinMap name='location' /> */}
           <Label title='Cover Photo' htmlFor='coverPhoto'>
             {!values.coverPhoto.imgURL && (
               <FileInput name='coverPhoto' fileTypes={fileTypes} />
@@ -83,7 +83,9 @@ function NewPinForm() {
             </span>
           </Label>
           <Label title='Pin Description' htmlFor='description'>
-            <HoveringTextEditor name='description' id='description' />
+            <div className='h-60 w-full overflow-y-auto border border-inherit shadow-lg rounded-md'>
+              <HoveringTextEditor name='description' id='description' />
+            </div>
           </Label>
           <ButtonMain type='submit' className='rounded-3xl'>
             Create Pin

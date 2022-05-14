@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SignedInUserLayout from '../../../app/layout/SignedInUserLayout';
 import NewPinForm from './NewPinForm';
 
