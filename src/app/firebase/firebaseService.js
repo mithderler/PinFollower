@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { getFileExtension } from '../common/util/functions';
+import { getFileExtension } from '../common/util/helpers';
 import { auth, firebaseStorage } from './firebase';
 import { setUserProfileData } from './firestoreService';
 import { v4 as uuidv4 } from 'uuid';

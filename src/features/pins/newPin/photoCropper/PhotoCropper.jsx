@@ -59,11 +59,13 @@ const PhotoCropper = ({ ...props }) => {
               onZoomChange={setZoom}
             />
           </div>
-          <div className='p-2 flex items-center'>
+          <div className='p-2 mt-2 items-center block space-y-2 md:flex text-center'>
             {croppedImage && (
-              <CropedImgEl src={croppedImageURL} onClose={onClose} />
+              <div className='flex w-full justify-center md:flex-1'>
+                <CropedImgEl src={croppedImageURL} onClose={onClose} />
+              </div>
             )}
-            <div className='block flex-1 items-center'>
+            <div className='block md:inline-block flex-1 items-center'>
               <div className='text-center'>ZOOM</div>
               <input
                 type='range'
@@ -75,20 +77,22 @@ const PhotoCropper = ({ ...props }) => {
                 onChange={(e) => setZoom(e.target.value)}
               />
             </div>
-            <button
-              type='button'
-              onClick={showCroppedImage}
-              className='text-white bg-blue-600 rounded py-2 px-4 ml-3'
-            >
-              Show Cropped
-            </button>
-            <button
-              type='button'
-              onClick={confirmCroppedImage}
-              className='text-white bg-blue-600 rounded py-2 px-4 ml-3'
-            >
-              Confirm Image
-            </button>
+            <div className='block md:flex-2'>
+              <button
+                type='button'
+                onClick={showCroppedImage}
+                className='text-white bg-blue-600 rounded py-2 px-4 ml-3'
+              >
+                Show Cropped
+              </button>
+              <button
+                type='button'
+                onClick={confirmCroppedImage}
+                className='text-white bg-blue-600 rounded py-2 px-4 ml-3'
+              >
+                Confirm Image
+              </button>
+            </div>
           </div>
         </div>
       )}

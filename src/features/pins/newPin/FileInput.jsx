@@ -1,13 +1,9 @@
 import { useField } from 'formik';
 import React, { useState } from 'react';
 
-import { uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
-import { firebaseStorage, auth } from '../../../app/firebase/firebase';
 import { v4 as uuidv4 } from 'uuid';
-import { uploadPhotoToFirebaseStorage } from '../../../app/firebase/firebaseService';
-import useStorageForImage from '../../../app/hooks/useStorageForImage';
 import ProgressBar from '../../../features/pins/newPin/ProgressBar';
-import { getFileExtension } from '../../../app/common/util/functions';
+import { getFileExtension } from '../../../app/common/util/helpers';
 
 function FileInput({ fileTypes, ...props }) {
   const [field, meta, helpers] = useField(props.name);

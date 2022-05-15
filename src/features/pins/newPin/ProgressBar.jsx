@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 import useStorageForImage from '../../../app/hooks/useStorageForImage';
-import { v4 as uuidv4 } from 'uuid';
-import { getFileExtension } from '../../../app/common/util/functions';
 
 const ProgressBar = ({ file, meta, setValue }) => {
   const { imgURL, progress } = useStorageForImage(file, meta.value.fileName);

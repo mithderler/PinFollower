@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { v4 as uuidv4 } from 'uuid';
 import { useField } from 'formik';
 import { firebaseStorage, auth } from '../firebase/firebase';
-import { getFileExtension } from '../common/util/functions';
 
 const useStorageForImage = (file, filename) => {
   const [progress, setProgress] = useState(0);

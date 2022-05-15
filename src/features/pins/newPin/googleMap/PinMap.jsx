@@ -1,5 +1,5 @@
 /* global google */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
   GoogleMap,
   useLoadScript,
@@ -7,6 +7,8 @@ import {
   Marker,
 } from '@react-google-maps/api';
 import { useField } from 'formik';
+
+import { getAndSetAddressByLatLng } from '../../../../app/common/util/helpers';
 
 const defaultZoom = 12;
 const initLocation = { lat: 46.959, lng: 7.45 };
@@ -20,37 +22,29 @@ function PinMap({ ...props }) {
   });
   const [userLatLng, setUserLatLng] = useState(initLocation);
   const searchRef = useRef();
+  const mapRef = useRef();
   const [center, setCenter] = useState(userLatLng);
   const [zoom, setZoom] = useState(defaultZoom);
+  const { setValue, setError, setTouched } = helpers;
 
   // if user searchs new address, find it on the map
   // if user click the map, get location info
   useEffect(() => {
     if (meta.value.latLng && meta.value.newAddressSearch) {
       setCenter(meta.value.latLng);
-      setZoom(() => defaultZoom);
+      if (zoom !== defaultZoom) {
+        setZoom(defaultZoom);
+      }
     }
     if (meta.value.latLng && !meta.value.newAddressSearch) {
       const { lat, lng } = meta.value.latLng;
-      const latLng = new google.maps.LatLng(lat, lng);
-      const geocoder = new google.maps.Geocoder();
-
-      geocoder.geocode({ latLng }, (results, status) => {
-        if (status !== google.maps.GeocoderStatus.OK) {
-          console.log('Google Status: ', status);
-        } else {
-          console.log('RESULTTTT: ', results);
-          const address = results[0].formatted_address;
-          helpers.setValue({
-            latLng: { lat, lng },
-            address,
-            newAddressSearch: false,
-          });
-        }
-      });
+      getAndSetAddressByLatLng({ lat, lng }, setValue);
     }
   }, [meta.value.latLng]);
 
+  const Spinner = () => <div>Loading...</div>;
+
+  // GoogleMap
   const mapOptions = {
     streetViewControl: false,
     mapTypeControl: false,
@@ -62,34 +56,16 @@ function PinMap({ ...props }) {
     height: '300px',
   };
 
-  const Spinner = () => <div>Loading...</div>;
-
-  const handleMapLoad = (map) => {
-    // const bounds = new window.google.maps.LatLngBounds();
-    // map.fitBounds(bounds);
+  // GoogleMap functions
+  const handleMapLoad = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
-          const newlatLng = { lat, lng };
-          setUserLatLng(newlatLng);
+          setUserLatLng({ lat, lng });
 
-          const latLng = new google.maps.LatLng(lat, lng);
-          const geocoder = new google.maps.Geocoder();
-
-          geocoder.geocode({ latLng }, (results, status) => {
-            if (status !== google.maps.GeocoderStatus.OK) {
-              console.log('Google Status: ', status);
-            } else {
-              // setAddress2(results[0].formatted_address);
-              helpers.setValue({
-                address: results[0].formatted_address,
-                latLng: newlatLng,
-                newAddressSearch: true,
-              });
-            }
-          });
+          getAndSetAddressByLatLng({ lat, lng }, setValue, true);
         },
         (err) => console.error(err),
         {
@@ -104,15 +80,22 @@ function PinMap({ ...props }) {
   };
 
   const handleMapClick = (e) => {
-    console.log('clikk: ', e.latLng.toJSON());
-    helpers.setValue({
+    setValue({
       latLng: e.latLng.toJSON(),
       address: '',
       newAddressSearch: false,
     });
   };
 
-  const onSearchLoad = React.useCallback((search) => {
+  const handleZoomChange = () => {
+    if (mapRef.current !== null) {
+      const newZoom = mapRef.current?.state.map.zoom;
+      setZoom(newZoom);
+    }
+  };
+
+  // Input StandaloneSearchBox functions
+  const onSearchLoad = useCallback((search) => {
     searchRef.current = search;
   }, []);
 
@@ -127,11 +110,20 @@ function PinMap({ ...props }) {
       lng: lng(),
     };
 
-    helpers.setValue({
+    setValue({
       address,
       latLng,
       newAddressSearch: true,
     });
+  };
+
+  const handleCancelAddress = (e) => {
+    setValue({
+      address: '',
+      latLng: null,
+      newAddressSearch: false,
+    });
+    e.target.parentNode.firstChild.focus();
   };
 
   if (loadError) {
@@ -149,15 +141,23 @@ function PinMap({ ...props }) {
           onLoad={onSearchLoad}
           onPlacesChanged={onPlacesChanged}
         >
-          <input
-            value={field.value['address']}
-            onChange={(e) =>
-              helpers.setValue({ ...meta.value, address: e.target.value })
-            }
-            className='box-border border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline text-ellipsis'
-            type='text'
-            placeholder='Customized your placeholder'
-          />
+          <div className='relative group'>
+            <input
+              value={field.value['address']}
+              onChange={(e) =>
+                setValue({ ...meta.value, address: e.target.value })
+              }
+              className='box-border border rounded p-3 w-full shadow focus:outline-none focus:border-blue-500 focus:shadow-outline text-ellipsis placeholder:italic placeholder:text-xs md:placeholder:text-sm'
+              type='text'
+              placeholder='Enter location'
+            />
+            <span
+              className='absolute text-second font-semibold right-3 top-3 z-20 hidden group-hover:inline-block cursor-pointer'
+              onClick={handleCancelAddress}
+            >
+              X
+            </span>
+          </div>
         </StandaloneSearchBox>
         <GoogleMap
           mapContainerStyle={containerStyle}
@@ -165,7 +165,9 @@ function PinMap({ ...props }) {
           zoom={zoom}
           onLoad={handleMapLoad}
           onClick={handleMapClick}
+          onZoomChanged={handleZoomChange}
           center={center}
+          ref={mapRef}
         >
           <>
             <Marker position={meta.value.latLng || center} />

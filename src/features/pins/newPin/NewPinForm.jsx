@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 
 import ButtonMain from '../../../app/common/buttons/ButtonMain';
 import FileInput from './FileInput';
-import GeoAddrSearch from './googleMap/GeoAddrSearch';
 import HoveringTextEditor from '../../../app/common/form/FormRichText';
 import PhotoCropper from './photoCropper/PhotoCropper';
 import PinMap from './googleMap/PinMap';
@@ -57,14 +56,12 @@ function NewPinForm() {
             <TextInput name='pinName' type='text' id='pinName' />
           </Label>
           <Label title='Address' htmlFor='location'>
-            {/* <GeoAddrSearch name='location' placeholder='Search address' /> */}
             <PinMap name='location' />
           </Label>
           <Label title='Cover Photo' htmlFor='coverPhoto'>
             {!values.coverPhoto.imgURL && (
               <FileInput name='coverPhoto' fileTypes={fileTypes} />
             )}
-            {console.log('valuesss: ', values)}
             {values.coverPhoto.imgURL && <PhotoCropper name='coverPhoto' />}
           </Label>
           <Label title='Cover Photo Description' htmlFor='photoDescription'>
