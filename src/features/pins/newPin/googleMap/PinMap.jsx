@@ -7,9 +7,9 @@ import {
   Marker,
 } from '@react-google-maps/api';
 import { useField } from 'formik';
-import useUserLocation from '../../../../app/hooks/useUserLocation';
 
 const defaultZoom = 12;
+const initLocation = { lat: 46.959, lng: 7.45 };
 
 function PinMap({ ...props }) {
   const [field, meta, helpers] = useField(props);
@@ -18,22 +18,10 @@ function PinMap({ ...props }) {
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
     libraries,
   });
-  const { userLatLng, userAddress } = useUserLocation();
+  const [userLatLng, setUserLatLng] = useState(initLocation);
   const searchRef = useRef();
   const [center, setCenter] = useState(userLatLng);
   const [zoom, setZoom] = useState(defaultZoom);
-
-  useEffect(() => {
-    // console.log('usrLTLNg: ', userLatLng);
-    // if (userLatLng) {
-    console.log('insidee');
-    helpers.setValue({
-      address: userAddress,
-      latLng: userLatLng,
-      newAddressSearch: true,
-    });
-    // }
-  }, []);
 
   // if user searchs new address, find it on the map
   // if user click the map, get location info
@@ -75,6 +63,45 @@ function PinMap({ ...props }) {
   };
 
   const Spinner = () => <div>Loading...</div>;
+
+  const handleMapLoad = (map) => {
+    // const bounds = new window.google.maps.LatLngBounds();
+    // map.fitBounds(bounds);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          const newlatLng = { lat, lng };
+          setUserLatLng(newlatLng);
+
+          const latLng = new google.maps.LatLng(lat, lng);
+          const geocoder = new google.maps.Geocoder();
+
+          geocoder.geocode({ latLng }, (results, status) => {
+            if (status !== google.maps.GeocoderStatus.OK) {
+              console.log('Google Status: ', status);
+            } else {
+              // setAddress2(results[0].formatted_address);
+              helpers.setValue({
+                address: results[0].formatted_address,
+                latLng: newlatLng,
+                newAddressSearch: true,
+              });
+            }
+          });
+        },
+        (err) => console.error(err),
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        }
+      );
+    } else {
+      console.log('Something went wrong (navigator.geolocation)');
+    }
+  };
 
   const handleMapClick = (e) => {
     console.log('clikk: ', e.latLng.toJSON());
@@ -136,6 +163,7 @@ function PinMap({ ...props }) {
           mapContainerStyle={containerStyle}
           options={mapOptions}
           zoom={zoom}
+          onLoad={handleMapLoad}
           onClick={handleMapClick}
           center={center}
         >
