@@ -9,8 +9,8 @@ function SignedInMenu() {
 
   return (
     <>
-      <ul className='hidden md:flex md:justify-between md:items-center gap-3'>
-        <ButtonMain>
+      <ul className='hidden md:flex md:justify-between md:items-center gap-3 ml-3'>
+        <ButtonMain className='min-w-[130px]'>
           <Link to='pins/new'>{t('navbar.create_pin')}</Link>
         </ButtonMain>
         <Navlink name={t('navbar.navlinks.home')} link='/' />

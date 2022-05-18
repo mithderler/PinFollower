@@ -12,6 +12,12 @@ import { getAndSetAddressByLatLng } from '../../../../app/common/util/helpers';
 
 const defaultZoom = 12;
 const initLocation = { lat: 46.959, lng: 7.45 };
+const emptyFields = {
+  locationName: '',
+  address: '',
+  latLng: null,
+  newAddressSearch: false,
+};
 
 function PinMap({ ...props }) {
   const [field, meta, helpers] = useField(props);
@@ -82,6 +88,7 @@ function PinMap({ ...props }) {
   const handleMapClick = (e) => {
     setValue({
       latLng: e.latLng.toJSON(),
+      locationName: '',
       address: '',
       newAddressSearch: false,
     });
@@ -100,10 +107,9 @@ function PinMap({ ...props }) {
   }, []);
 
   const onPlacesChanged = () => {
-    const addressName = searchRef.current.getPlaces()[0].name;
-    const formattedAddress = searchRef.current.getPlaces()[0].formatted_address;
-    const address = `${addressName}, ${formattedAddress}`;
-
+    const locationName = searchRef.current.getPlaces()[0].name;
+    const address = searchRef.current.getPlaces()[0].formatted_address;
+    console.log('arama adresi: ', searchRef.current.getPlaces()[0]);
     const { lat, lng } = searchRef.current.getPlaces()[0].geometry.location;
     const latLng = {
       lat: lat(),
@@ -111,18 +117,15 @@ function PinMap({ ...props }) {
     };
 
     setValue({
+      locationName,
       address,
       latLng,
       newAddressSearch: true,
     });
   };
-
+  console.log('METAA: ', meta.value);
   const handleCancelAddress = (e) => {
-    setValue({
-      address: '',
-      latLng: null,
-      newAddressSearch: false,
-    });
+    setValue(emptyFields);
     e.target.parentNode.firstChild.focus();
   };
 
@@ -143,7 +146,9 @@ function PinMap({ ...props }) {
         >
           <div className='relative group'>
             <input
-              value={field.value['address']}
+              value={`${
+                meta.value.locationName && field.value['locationName'] + ', '
+              }${field.value['address']}`}
               onChange={(e) =>
                 setValue({ ...meta.value, address: e.target.value })
               }

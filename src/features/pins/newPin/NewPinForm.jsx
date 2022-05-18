@@ -10,15 +10,20 @@ import PhotoCropper from './photoCropper/PhotoCropper';
 import PinMap from './googleMap/PinMap';
 import TextArea from '../../../app/common/form/TextArea';
 import TextInput from '../../../app/common/form/TextInput';
+import { addPinToFirestore } from '../../../app/firebase/firestoreService';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function NewPinForm() {
   const fileTypes = ['image/png', 'image/jpeg'];
+  const navigate = useNavigate();
 
   return (
     <Formik
       initialValues={{
         pinName: '',
         location: {
+          locationName: '',
           address: '',
           latLng: null,
           newAddressSearch: false,
@@ -44,14 +49,22 @@ function NewPinForm() {
         // address: Yup.string().required(),
         photoDescription: Yup.string(),
       })}
-      onSubmit={(values, { setSubmitting, setErrors }) => {
+      onSubmit={async (values, { setSubmitting, setErrors }) => {
         const tags = getTagsArr(values.tags);
         const editedValues = { ...values, tags };
-        console.log('values: ', editedValues);
+        console.log(editedValues);
+        try {
+          await addPinToFirestore(editedValues);
+          setSubmitting(false);
+          navigate('/');
+        } catch (error) {
+          toast.error(error.message);
+          setSubmitting(false);
+        }
       }}
     >
       {({ isSubmitting, isValid, dirty, errors, values }) => (
-        <Form className='w-full'>
+        <Form className='w-full' onKeyDown={onKeyDown}>
           <Label title='Pin Name' htmlFor='pinName'>
             <TextInput name='pinName' type='text' id='pinName' />
           </Label>
@@ -106,9 +119,18 @@ function Label({ title, htmlFor, children }) {
 
 function getTagsArr(tagsText) {
   if (tagsText.length > 0) {
-    return tagsText.split(',').map((el) => el.trim());
+    return tagsText
+      .split(',')
+      .map((el) => el.trim().replaceAll(' ', '').toLowerCase())
+      .filter((el) => el !== '' && el.length >= 3);
   }
   return [];
+}
+
+function onKeyDown(keyEvent) {
+  if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+    keyEvent.preventDefault();
+  }
 }
 
 export default NewPinForm;

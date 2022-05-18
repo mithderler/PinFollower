@@ -15,7 +15,9 @@ export function getAndSetAddressByLatLng(
     if (status !== google.maps.GeocoderStatus.OK) {
       console.error('Google Status: ', status);
     } else {
+      console.log('sonuz: ', results[0]);
       setValue({
+        locationName: '',
         address: results[0].formatted_address,
         latLng: { lat, lng },
         newAddressSearch,

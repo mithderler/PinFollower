@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
-
+import { onSnapshot } from 'firebase/firestore';
 import { auth } from '../../app/firebase/firebase';
+import { asyncActions } from '../../app/async/asyncReducer';
+
+import {
+  getUserProfileRef,
+  organizeSnapshotDoc,
+} from '../../app/firebase/firestoreService';
+import { profileActions } from '../profiles/profileReducer';
 
 const initialState = {
   authenticated: false,
@@ -37,15 +44,18 @@ export function verifyAuth() {
       if (user) {
         console.log('verify user: ', user);
         dispatch(authActions.signInUser(user));
-        // const profileRef = getUserProfile(user.uid);
-        // profileRef.onSnapshot((snapshot) => {
-        //   dispatch(listenToCurrentUserProfile(dataFromSnapshot(snapshot)));
-        //   dispatch({ type: APP_LOADED });
-        return;
+        const profileRef = getUserProfileRef(user.uid);
+        onSnapshot(profileRef, (snapshot) => {
+          console.log('sanpshot: ', snapshot.data());
+          dispatch(
+            profileActions.getCurrentUserProfile(organizeSnapshotDoc(snapshot))
+          );
+          dispatch(asyncActions.appLoaded());
+        });
       } else {
         dispatch(authActions.signOutUser());
-        // dispatch({ type: APP_LOADED });
-        console.log('no verify user');
+        dispatch(asyncActions.appLoaded());
+        console.log('no verified user');
       }
     });
   };

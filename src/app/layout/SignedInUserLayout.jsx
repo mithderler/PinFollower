@@ -7,7 +7,7 @@ function SignedInUserLayout({ containerWidth = 'max-w-3xl', children }) {
   return (
     <div className='bg-[#f8f8f8]'>
       <Navbar />
-      <div className={`container ${containerWidth} px-4 pt-24`}>
+      <div className={`container ${containerWidth} px-4 pt-28 sm:pt-24`}>
         {children}
         <ScrollButton />
       </div>

@@ -1,15 +1,26 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
 
 import { authActions } from '../auth/authReducer';
+import { signOutFirebase } from '../../app/firebase/firebaseService';
+import { toast } from 'react-toastify';
 
 function HamburgerMenu({ openMenu, setOpenMenu }) {
   const { authenticated } = useSelector((state) => state.auth);
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  async function handlerSignOut() {
+    await signOutFirebase();
+    dispatch(authActions.signOutUser());
+    toast.success(t('profile_menu.sign_out_success'));
+    navigate('/');
+  }
 
   return (
     <div
@@ -38,9 +49,12 @@ function HamburgerMenu({ openMenu, setOpenMenu }) {
               <MenuElement text={t('navbar.navlinks.explore')} />
               <MenuElement
                 text={t('navbar.navlinks.sign_in')}
-                onClick={() => dispatch(authActions.login())}
+                onClick={() => navigate('/users/sign_in')}
               />
-              <MenuElement text={t('navbar.navlinks.sign_up')} />
+              <MenuElement
+                text={t('navbar.navlinks.sign_up')}
+                onClick={() => navigate('/users/sign_up')}
+              />
             </ul>
           )}
           {authenticated && (
@@ -55,15 +69,18 @@ function HamburgerMenu({ openMenu, setOpenMenu }) {
               <MenuElement
                 text={t('navbar.create_pin')}
                 className='bg-main !text-white mx-4 rounded hover:!bg-second transition ease-in delay-100'
-                onClick={() => alert('oo yeeaa')}
+                onClick={() => navigate('/pins/new')}
               />
-              <MenuElement text={t('navbar.navlinks.home')} />
+              <MenuElement
+                text={t('navbar.navlinks.home')}
+                onClick={() => navigate('/')}
+              />
               <MenuElement text={t('navbar.navlinks.explore')} />
               <MenuElement text={t('profile_menu.profile')} />
               <MenuElement text={t('profile_menu.settings')} />
               <MenuElement
                 text={t('profile_menu.sign_out')}
-                onClick={() => dispatch(authActions.logout())}
+                onClick={handlerSignOut}
               />
             </ul>
           )}

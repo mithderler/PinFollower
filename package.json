@@ -14,6 +14,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "@slate-editor/bold-plugin": "^5.1.0",
     "@udecode/plate": "^10.8.0",
+    "date-fns": "^2.28.0",
     "draft-js": "^0.11.7",
     "firebase": "^9.6.11",
     "formik": "^2.2.9",
