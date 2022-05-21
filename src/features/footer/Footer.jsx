@@ -9,6 +9,7 @@ import {
   CURRENT_YEAR,
 } from '../../app/common/constants/AppConstants';
 import LanguageMenu from './LanguageMenu';
+import { Link } from 'react-router-dom';
 
 function Footer() {
   const { t } = useTranslation();
@@ -21,7 +22,9 @@ function Footer() {
             <p className='text-3xl my-2 md:my-4 font-semibold'>
               {APP_TRADEMARK}
             </p>
-            <p>{t('footer.about')}</p>
+            <Link to='/about'>
+              <p>{t('footer.about')}</p>
+            </Link>
           </div>
           <div className='pt-4 md:pt-0'>
             <h4 className='text-lg font-semibold my-4 md:my-8'>
@@ -49,14 +52,18 @@ function Footer() {
           </div>
         </div>
         <hr className='w-full my-2 border-gray-700' />
-        <div className='block md:flex justify-between pt-4'>
+        <div className='block md:flex justify-between pt-4 text-gray-400'>
           <div className='mb-6 md:mb-0'>
             <LanguageMenu />
           </div>
           <div className='space-x-2 text-center md:text-inherit'>
-            <span>{t('footer.terms_of_use')}</span>
+            <Link to='/terms_of_use'>
+              <span>{t('footer.terms_of_use')}</span>
+            </Link>
             <span className='mx-2'>|</span>
-            <span>{t('footer.privacy_policy')}</span>
+            <Link to='/privacy_policy'>
+              <span>{t('footer.privacy_policy')}</span>
+            </Link>
             <span className='mx-2'>|</span>
             <span>{`© ${CURRENT_YEAR} ${APP_TRADEMARK}`}</span>
           </div>

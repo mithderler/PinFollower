@@ -1,9 +1,6 @@
 /* global google */
-export function getFileExtension(filename) {
-  return filename.slice(((filename.lastIndexOf('.') - 1) >>> 0) + 2);
-}
 
-export function getAndSetAddressByLatLng(
+export default function getAndSetAddressByLatLng(
   { lat, lng },
   setValue,
   newAddressSearch = false

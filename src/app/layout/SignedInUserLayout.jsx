@@ -5,7 +5,7 @@ import ScrollButton from './ScrollButton';
 
 function SignedInUserLayout({ containerWidth = 'max-w-3xl', children }) {
   return (
-    <div className='bg-[#f8f8f8]'>
+    <div className='bg-background'>
       <Navbar />
       <div className={`container ${containerWidth} px-4 pt-28 sm:pt-24`}>
         {children}

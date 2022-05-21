@@ -46,7 +46,6 @@ export function verifyAuth() {
         dispatch(authActions.signInUser(user));
         const profileRef = getUserProfileRef(user.uid);
         onSnapshot(profileRef, (snapshot) => {
-          console.log('sanpshot: ', snapshot.data());
           dispatch(
             profileActions.getCurrentUserProfile(organizeSnapshotDoc(snapshot))
           );

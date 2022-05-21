@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { APP_TRADEMARK } from '../common/constants/AppConstants';
 
 const useDocTitle = (text) => {

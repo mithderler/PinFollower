@@ -5,7 +5,7 @@ import {
   MaterialEditable,
   createMaterialEditor,
   HoveringToolbar,
-} from '../util/SlateEditor/Editor';
+} from '../utils/SlateEditor/Editor';
 
 const FormRichText = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props.name);

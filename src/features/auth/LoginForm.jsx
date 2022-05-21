@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import {
+  getAuth,
+  setPersistence,
+  browserSessionPersistence,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 import { authActions } from './authReducer';
 import TextInput from '../../app/common/form/TextInput';
-import { signInWithEmail } from '../../app/firebase/firebaseService';
+import {
+  signInWithEmailAndRemember,
+  signInWithEmailForOneSession,
+} from '../../app/firebase/firebaseService';
 import { toast } from 'react-toastify';
+import { getLocaleText } from '../../app/common/utils/errorMatches';
 
-function LoginForm({ onSubmit }) {
+function LoginForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,8 +43,14 @@ function LoginForm({ onSubmit }) {
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
         try {
-          onSubmit(values);
-          const { user } = await signInWithEmail(values);
+          setSubmitting(true);
+          let response;
+          if (values.rememberMe) {
+            response = await signInWithEmailAndRemember(values);
+          } else {
+            response = await signInWithEmailForOneSession(values);
+          }
+          const { user } = response;
           // if (!user.emailVerified) {
           //   setErrors({
           //     activation: t('login_form.activate_your_account'),
@@ -53,7 +69,9 @@ function LoginForm({ onSubmit }) {
           setSubmitting(false);
           navigate('/');
         } catch (error) {
-          setErrors({ auth: error.message });
+          console.log('ERROR: ', error);
+          const errorLocaleText = getLocaleText(error.code);
+          setErrors({ auth: t(`login_form.auth.${errorLocaleText}`) });
           setSubmitting(false);
         }
       }}
@@ -77,11 +95,18 @@ function LoginForm({ onSubmit }) {
             <TextInput name='password' type='password' id='password' />
           </div>
           <div className='flex items-center justify-between mb-6'>
-            <div>
+            <div className='flex items-center justify-between'>
               <Field type='checkbox' name='rememberMe' id='rememberMe' />{' '}
-              <label htmlFor='rememberMe'>{t('login_form.remember_me')}</label>
+              <label htmlFor='rememberMe' className='ml-2'>
+                {t('login_form.remember_me')}
+              </label>
             </div>
-            <div>{t('login_form.forgot_password')}</div>
+            <div
+              className='text-sm italic hover:text-second hover:cursor-pointer'
+              onClick={() => navigate('/users/password/new')}
+            >
+              {t('login_form.forgot_password')}
+            </div>
           </div>
           {errors.auth && (
             <div className='text-red-500 text-xs'>{errors.auth}</div>

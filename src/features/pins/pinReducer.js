@@ -9,7 +9,6 @@ const pinSlice = createSlice({
   initialState,
   reducers: {
     fetchPins(state, { payload }) {
-      console.log('payload: ', payload);
       state.pins = payload;
     },
   },

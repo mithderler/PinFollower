@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { v4 as uuidv4 } from 'uuid';
 import ProgressBar from '../../../features/pins/newPin/ProgressBar';
-import { getFileExtension } from '../../../app/common/util/helpers';
+import { getFileExtension } from '../../../app/common/utils/helpers';
 
 function FileInput({ fileTypes, ...props }) {
   const [field, meta, helpers] = useField(props.name);

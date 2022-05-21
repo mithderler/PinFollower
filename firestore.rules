@@ -4,7 +4,6 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isSignedIn();
       allow update, create: if request.auth.uid == userId;
-
     }
     match /{document=**} {
       allow read, write;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 import {
   APP_TRADEMARK,
@@ -9,10 +10,12 @@ import {
 import RegisterForm from './RegisterForm';
 import SocialLogin from './SocialLogin';
 import useDocTitle from '../../app/hooks/useDocTitle';
-
 function RegisterPage() {
   const { t } = useTranslation();
   useDocTitle(t('navbar.navlinks.sign_up'));
+  const privacyPolicy = t('pages.polices.privacy_policy');
+  const termsOfUse = t('pages.polices.terms_of_use');
+  const cookiePolicy = t('pages.polices.cookie_policy');
 
   return (
     <div className='signBackground flex justify-center h-full md:p-4'>
@@ -37,9 +40,55 @@ function RegisterPage() {
             />
             <div className='flex items-center justify-center mt-2'>
               <span className='text-center'>
-                Hesap oluşturarak, <LinkStyle text='Gizlilik Politikası' />,{' '}
+                {/* <Trans i18nKey='welcomeUser'>
+                  Hello <strong>{{ name }}</strong>.{' '}
+                  <Link to='/users/sign_in'>See my profile</Link>
+                </Trans> */}
+                <Trans i18nKey='sign_up_page.polices.main_text'>
+                  By registering an account, you are agreeing to our{' '}
+                  <Link
+                    to='/privacy_policy'
+                    className='text-main font-semibold ml-2'
+                  >
+                    {{ privacyPolicy }}
+                  </Link>
+                  ,{' '}
+                  <Link
+                    to='/terms_of_use'
+                    className='text-main font-semibold ml-2'
+                  >
+                    {{ termsOfUse }}
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    to='/cookie_policy'
+                    className='text-main font-semibold ml-2'
+                  >
+                    {{ cookiePolicy }}
+                  </Link>
+                  .
+                </Trans>
+                {/* <Trans
+                  i18nKey='welcomeUser2' // optional -> fallbacks to defaults if not provided
+                  defaults='hello <link>beautiful</link> <bold>{{what}}</bold>' // optional defaultValue
+                  values={{ what: 'world' }}
+                  components={{
+                    link: <Link to='/users/sign_in' />,
+                    bold: <strong />,
+                  }}
+                /> */}
+                {/* {t('sign_up_page.polices.main_text', {
+                  privacyPolicy: (
+                    <small>{t('sign_up_page.polices.privacy_policy')}</small>
+                  ),
+                  termsOfUse: t('sign_up_page.polices.terms_of_use'),
+                  cookiePolicy: t('sign_up_page.polices.cookie_policy'),
+                  interpolation: { escapeValue: false },
+                })} */}
+                {/* <br></br>Hesap oluşturarak,{' '}
+                <LinkStyle text='Gizlilik Politikası' />,{' '}
                 <LinkStyle text='Kullanım Koşulları' /> ve{' '}
-                <LinkStyle text='Çerez Politikası' /> kabul etmiş sayılırsınız
+                <LinkStyle text='Çerez Politikası' /> kabul etmiş sayılırsınız */}
               </span>
             </div>
             <div className='relative flex items-center justify-center mt-8'>

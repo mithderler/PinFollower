@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from '../../store/configureStore';
-import '../../../app/common/util/i18n';
+import './i18n';
 import '../../../index.css';
 
 const loadingMarkup = <div>Loading</div>;

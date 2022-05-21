@@ -8,7 +8,7 @@ import {
 } from '@react-google-maps/api';
 import { useField } from 'formik';
 
-import { getAndSetAddressByLatLng } from '../../../../app/common/util/helpers';
+import { getAndSetAddressByLatLng } from '../../../../app/common/utils/helpers';
 
 const defaultZoom = 12;
 const initLocation = { lat: 46.959, lng: 7.45 };

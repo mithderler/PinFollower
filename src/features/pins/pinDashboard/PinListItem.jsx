@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { formatDistance } from 'date-fns';
 import * as locale from 'date-fns/locale';
 
-import ReadOnly from '../../../app/common/util/SlateEditor/ReadOnly';
+import ReadOnly from '../../../app/common/utils/SlateEditor/ReadOnly';
 
 function PinListItem({ pin }) {
   const [localeLang, setLocaleLang] = useState(null);

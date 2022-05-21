@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 import TextInput from '../../app/common/form/TextInput';
 import { registerInFirebase } from '../../app/firebase/firebaseService';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { getLocaleText } from '../../app/common/utils/errorMatches';
 
 function RegisterForm({ onSubmit }) {
   const { t } = useTranslation();
@@ -48,7 +49,9 @@ function RegisterForm({ onSubmit }) {
           setSubmitting(false);
           navigate('/users/sign_in');
         } catch (error) {
-          setErrors({ auth: error.message });
+          console.log('ERROR: ', error);
+          const errorLocaleText = getLocaleText(error.code);
+          setErrors({ auth: t(`sign_up_form.auth.${errorLocaleText}`) });
           setSubmitting(false);
         }
       }}

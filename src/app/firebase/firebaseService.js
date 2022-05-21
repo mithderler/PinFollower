@@ -1,13 +1,16 @@
 import { async } from '@firebase/util';
 import {
+  browserSessionPersistence,
   createUserWithEmailAndPassword,
-  updateProfile,
   sendEmailVerification,
+  sendPasswordResetEmail,
+  setPersistence,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { getFileExtension } from '../common/util/helpers';
+import { getFileExtension } from '../common/utils/helpers';
 import { auth, firebaseStorage } from './firebase';
 import { setUserProfileData } from './firestoreService';
 import { v4 as uuidv4 } from 'uuid';
@@ -32,8 +35,22 @@ export async function registerInFirebase({ email, username, password }) {
   }
 }
 
-export async function signInWithEmail({ email, password }) {
+export async function signInWithEmailAndRemember({ email, password }) {
   return await signInWithEmailAndPassword(auth, email, password);
+}
+
+export async function signInWithEmailForOneSession({ email, password }) {
+  return await setPersistence(auth, browserSessionPersistence).then(
+    async () => {
+      return await signInWithEmailAndPassword(auth, email, password);
+    }
+  );
+}
+
+export async function sendPassResetEmail({ email }) {
+  return await sendPasswordResetEmail(auth, email).then(() => {
+    console.log('GNDERİLDİ');
+  });
 }
 
 export async function signOutFirebase() {

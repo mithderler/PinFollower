@@ -6,7 +6,7 @@ import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 
 import App from './app/layout/App';
 import configureStore from './app/store/configureStore';
-import './app/common/util/i18n';
+import './app/common/utils/i18n';
 import './index.css';
 
 if (process.env.NODE_ENV === 'production') {

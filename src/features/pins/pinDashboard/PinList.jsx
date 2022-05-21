@@ -26,7 +26,6 @@ function PinList() {
     getPins();
   }, [dispatch]);
 
-  console.log('pinsssss: ', pins);
   return (
     <>
       {!loading && pins?.map((pin) => <PinListItem key={pin.id} pin={pin} />)}
