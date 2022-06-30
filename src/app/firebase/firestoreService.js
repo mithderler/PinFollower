@@ -32,11 +32,17 @@ export function organizeSnapshotDoc(snapshot) {
 
 export async function setUserProfileData(user) {
   try {
+    let currentUser = null;
+    // do not change user profile in firestore if user logged in before
+    const crrUserDoc = await getDoc(doc(firestore, 'users', user.uid));
+    if (crrUserDoc.exists()) {
+      currentUser = crrUserDoc.data();
+    }
     return await setDoc(doc(firestore, 'users', user.uid), {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL || null,
-      createdAt: serverTimestamp(),
+      displayName: currentUser?.displayName || user.displayName,
+      email: currentUser?.email || user.email,
+      photoURL: currentUser?.photoURL || user.photoURL || null,
+      createdAt: currentUser?.createdAt || serverTimestamp(),
     });
   } catch (error) {
     throw error;

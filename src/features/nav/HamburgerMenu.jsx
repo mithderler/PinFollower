@@ -40,7 +40,7 @@ function HamburgerMenu({ openMenu, setOpenMenu }) {
         <div
           className={
             openMenu
-              ? 'block text-center py-4 absolute top-16 right-0 left-0 bg-white z-20'
+              ? 'block text-center py-4 absolute top-24 sm:top-16 right-0 left-0 bg-white z-20'
               : 'hidden'
           }
         >

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Footer from '../../features/footer/Footer';
 import Navbar from '../../features/nav/Navbar';
 import ScrollButton from './ScrollButton';
@@ -15,5 +16,9 @@ function SignedInUserLayout({ containerWidth = 'max-w-3xl', children }) {
     </div>
   );
 }
+
+SignedInUserLayout.propTypes = {
+  containerWidth: PropTypes.string,
+};
 
 export default SignedInUserLayout;

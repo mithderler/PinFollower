@@ -51,13 +51,13 @@ function LoginForm() {
             response = await signInWithEmailForOneSession(values);
           }
           const { user } = response;
-          // if (!user.emailVerified) {
-          //   setErrors({
-          //     activation: t('login_form.activate_your_account'),
-          //   });
-          //   setSubmitting(false);
-          //   return;
-          // }
+          if (!user.emailVerified) {
+            setErrors({
+              activation: t('login_form.activate_your_account'),
+            });
+            setSubmitting(false);
+            return;
+          }
           const userCredential = {
             email: user.email,
             photoURL: user.photoURL,

@@ -6,3 +6,5 @@ export const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_MSG_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
 };
+
+export const isEmulatorsOn = false;

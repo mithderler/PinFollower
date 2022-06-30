@@ -22,9 +22,7 @@ function Footer() {
             <p className='text-3xl my-2 md:my-4 font-semibold'>
               {APP_TRADEMARK}
             </p>
-            <Link to='/about'>
-              <p>{t('footer.about')}</p>
-            </Link>
+            <FooterLink route='/about' title={t('footer.about')} />
           </div>
           <div className='pt-4 md:pt-0'>
             <h4 className='text-lg font-semibold my-4 md:my-8'>
@@ -47,7 +45,12 @@ function Footer() {
               <span>
                 <AiOutlineMail />
               </span>
-              <span>{CONTACT_EMAIL}</span>
+              <a
+                href={CONTACT_EMAIL}
+                className='hover:text-main transition-all ease-in delay-75'
+              >
+                <span>{CONTACT_EMAIL}</span>
+              </a>
             </div>
           </div>
         </div>
@@ -57,13 +60,17 @@ function Footer() {
             <LanguageMenu />
           </div>
           <div className='space-x-2 text-center md:text-inherit'>
-            <Link to='/terms_of_use'>
-              <span>{t('footer.terms_of_use')}</span>
-            </Link>
+            <FooterLink
+              route='/terms_of_use'
+              title={t('footer.terms_of_use')}
+              className='hover:text-gray-200'
+            />
             <span className='mx-2'>|</span>
-            <Link to='/privacy_policy'>
-              <span>{t('footer.privacy_policy')}</span>
-            </Link>
+            <FooterLink
+              route='/privacy_policy'
+              title={t('footer.privacy_policy')}
+              className='hover:text-gray-200'
+            />
             <span className='mx-2'>|</span>
             <span>{`© ${CURRENT_YEAR} ${APP_TRADEMARK}`}</span>
           </div>
@@ -72,5 +79,18 @@ function Footer() {
     </div>
   );
 }
+
+const FooterLink = ({ route, title, className, ...props }) => {
+  return (
+    <span
+      className={`hover:text-main transition-all ease-in delay-75 ${className}`}
+      {...props}
+    >
+      <Link to={route}>
+        <span>{title}</span>
+      </Link>
+    </span>
+  );
+};
 
 export default Footer;

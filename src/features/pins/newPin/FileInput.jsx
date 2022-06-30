@@ -1,5 +1,6 @@
 import { useField } from 'formik';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { v4 as uuidv4 } from 'uuid';
 import ProgressBar from '../../../features/pins/newPin/ProgressBar';
@@ -46,5 +47,10 @@ function FileInput({ fileTypes, ...props }) {
     </>
   );
 }
+
+FileInput.protoTypes = {
+  name: PropTypes.string,
+  fileTypes: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default FileInput;

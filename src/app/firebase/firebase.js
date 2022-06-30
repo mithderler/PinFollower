@@ -8,7 +8,7 @@ import {
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
 import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 
-import { firebaseConfig } from './config';
+import { firebaseConfig, isEmulatorsOn } from './config';
 
 function initializeServices() {
   const isConfigured = getApps().length > 0;
@@ -40,7 +40,7 @@ function connectToEmulators({ auth, firestore, firebaseStorage, functions }) {
 
 export function getFirebase() {
   const services = initializeServices();
-  if (!services.isConfigured) {
+  if (!services.isConfigured && isEmulatorsOn) {
     connectToEmulators(services);
     enableMultiTabIndexedDbPersistence(services.firestore);
   }

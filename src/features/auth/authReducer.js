@@ -42,7 +42,7 @@ export function verifyAuth() {
   return function (dispatch) {
     return onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('verify user: ', user);
+        console.log('verified user: ', user);
         dispatch(authActions.signInUser(user));
         const profileRef = getUserProfileRef(user.uid);
         onSnapshot(profileRef, (snapshot) => {
@@ -57,5 +57,17 @@ export function verifyAuth() {
         console.log('no verified user');
       }
     });
+  };
+}
+
+export function setUserDataForSignIn(user) {
+  const userCredential = {
+    email: user.email,
+    photoURL: user.photoURL,
+    uid: user.uid,
+    displayName: user.displayName,
+  };
+  return function (dispatch) {
+    dispatch(authActions.signInUser(userCredential));
   };
 }

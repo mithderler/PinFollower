@@ -26,13 +26,7 @@ function RegisterPage() {
           </div>
           <p className='text-center text-2xl mb-3'>{t('sign_up_page.title')}</p>
           <hr className='' />
-          <div className='flex flex-col w-full px-8'>
-            <SocialLogin />
-            <div className='w-full flex items-center justify-between py-4'>
-              <hr className='w-full bg-gray-600' />
-              <p className='italic leading-4 px-2.5'>{t('sign_up_page.or')}</p>
-              <hr className='w-full bg-gray-600' />
-            </div>
+          <div className='flex flex-col w-full px-8 py-3'>
             <RegisterForm
               onSubmit={(values) => {
                 console.log('Form submitted: ', values);
@@ -40,10 +34,6 @@ function RegisterPage() {
             />
             <div className='flex items-center justify-center mt-2'>
               <span className='text-center'>
-                {/* <Trans i18nKey='welcomeUser'>
-                  Hello <strong>{{ name }}</strong>.{' '}
-                  <Link to='/users/sign_in'>See my profile</Link>
-                </Trans> */}
                 <Trans i18nKey='sign_up_page.polices.main_text'>
                   By registering an account, you are agreeing to our{' '}
                   <Link
@@ -68,27 +58,6 @@ function RegisterPage() {
                   </Link>
                   .
                 </Trans>
-                {/* <Trans
-                  i18nKey='welcomeUser2' // optional -> fallbacks to defaults if not provided
-                  defaults='hello <link>beautiful</link> <bold>{{what}}</bold>' // optional defaultValue
-                  values={{ what: 'world' }}
-                  components={{
-                    link: <Link to='/users/sign_in' />,
-                    bold: <strong />,
-                  }}
-                /> */}
-                {/* {t('sign_up_page.polices.main_text', {
-                  privacyPolicy: (
-                    <small>{t('sign_up_page.polices.privacy_policy')}</small>
-                  ),
-                  termsOfUse: t('sign_up_page.polices.terms_of_use'),
-                  cookiePolicy: t('sign_up_page.polices.cookie_policy'),
-                  interpolation: { escapeValue: false },
-                })} */}
-                {/* <br></br>Hesap oluşturarak,{' '}
-                <LinkStyle text='Gizlilik Politikası' />,{' '}
-                <LinkStyle text='Kullanım Koşulları' /> ve{' '}
-                <LinkStyle text='Çerez Politikası' /> kabul etmiş sayılırsınız */}
               </span>
             </div>
             <div className='relative flex items-center justify-center mt-8'>
@@ -96,9 +65,6 @@ function RegisterPage() {
               <Link to='/users/sign_in'>
                 <LinkStyle text={t('sign_up_page.sign_in')} />
               </Link>
-              {/* <span className='text-main font-semibold ml-2'>
-                {t('sign_up_page.sign_in')}
-              </span> */}
             </div>
             <div className='flex items-center justify-center text-gray-500 font-medium my-10'>
               <span>©</span>

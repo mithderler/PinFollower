@@ -6,6 +6,7 @@ import {
   sendPasswordResetEmail,
   setPersistence,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from 'firebase/auth';
@@ -47,9 +48,27 @@ export async function signInWithEmailForOneSession({ email, password }) {
   );
 }
 
+export async function signInWithProvider(providerSelected) {
+  try {
+    await signOutFirebase();
+    const provider = new providerSelected();
+    const authResult = await signInWithPopup(auth, provider);
+    const { user } = authResult;
+    await setUserProfileData(user);
+    return authResult;
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log('Error: ', errorCode, errorMessage);
+    // The email of the user's account used.
+    const email = error.customData.email;
+    console.log('Error account: ', email);
+  }
+}
+
 export async function sendPassResetEmail({ email }) {
   return await sendPasswordResetEmail(auth, email).then(() => {
-    console.log('GNDERİLDİ');
+    console.log('Password has been sent');
   });
 }
 

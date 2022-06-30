@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { GoLocation } from 'react-icons/go';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
@@ -76,5 +77,9 @@ function PinListItem({ pin }) {
     </div>
   );
 }
+
+PinListItem.propTypes = {
+  pin: PropTypes.object.isRequired,
+};
 
 export default PinListItem;
