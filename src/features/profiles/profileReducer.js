@@ -6,14 +6,18 @@ const initialState = {
   photos: [],
   followers: [],
   followings: [],
+  followingUser: false,
 };
 
 const profileSlice = createSlice({
   name: 'Profile',
   initialState,
   reducers: {
-    getCurrentUserProfile(state, { payload }) {
+    setCurrentUserProfile(state, { payload }) {
       state.currentUserProfile = payload;
+    },
+    setSelectedUserProfile(state, { payload }) {
+      state.selectedUserProfile = payload;
     },
   },
 });

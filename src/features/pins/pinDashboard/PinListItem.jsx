@@ -5,6 +5,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 import { formatDistance } from 'date-fns';
 import * as locale from 'date-fns/locale';
+import { Link } from 'react-router-dom';
 
 import ReadOnly from '../../../app/common/utils/SlateEditor/ReadOnly';
 
@@ -29,7 +30,14 @@ function PinListItem({ pin }) {
           alt='user'
         />
         <div className='block m-2'>
-          <span className='text-lg text-black'>{pin.ownerUsername}</span>
+          <span className='text-lg text-black'>
+            <Link
+              to={`/profiles/${pin.ownerUid}`}
+              className='cursor-pointer transition ease-in delay-100 hover:text-main'
+            >
+              {pin.ownerUsername}
+            </Link>
+          </span>
           <div className='text-xs'>
             {formatDistance(
               new Date(pin.createdAt.seconds * 1000),

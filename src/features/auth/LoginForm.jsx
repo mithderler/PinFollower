@@ -60,7 +60,7 @@ function LoginForm() {
           }
           const userCredential = {
             email: user.email,
-            photoURL: user.photoURL,
+            // photoURL: user.photoURL,
             uid: user.uid,
             displayName: user.displayName,
           };

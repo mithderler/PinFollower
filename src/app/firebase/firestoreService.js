@@ -26,7 +26,7 @@ export function organizeSnapshotDoc(snapshot) {
 
   return {
     ...data,
-    id: snapshot.id,
+    uid: snapshot.id,
   };
 }
 
@@ -49,8 +49,8 @@ export async function setUserProfileData(user) {
   }
 }
 
-export function getUserProfileRef(userUid) {
-  return doc(firestore, 'users', userUid);
+export function getUserProfileRef(userId) {
+  return doc(firestore, 'users', userId);
 }
 
 export async function addPinToFirestore(pin) {

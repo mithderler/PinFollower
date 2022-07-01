@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Menu, Transition } from '@headlessui/react';
@@ -12,7 +12,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function ProfileMenu() {
+function ProfileMenu({ currentUserProfile }) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,8 +29,9 @@ function ProfileMenu() {
       <div>
         <Menu.Button className='inline-flex justify-center w-full border-gray-300 shadow-sm  bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none'>
           <img
-            src='/assets/img/user.png'
+            src={currentUserProfile?.photoURL || '/assets/img/user.png'}
             className='h-8 w-8 rounded-full object-cover hover:cursor-pointer'
+            referrerPolicy='no-referrer'
             alt='user'
           />
         </Menu.Button>
@@ -47,7 +48,10 @@ function ProfileMenu() {
       >
         <Menu.Items className='origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1'>
-            <MenuItem text={t('profile_menu.profile')} />
+            <MenuItem
+              text={t('profile_menu.profile')}
+              onClick={() => navigate(`/profiles/${currentUserProfile?.uid}`)}
+            />
             <MenuItem text={t('profile_menu.settings')} />
             <MenuItem
               text={t('profile_menu.sign_out')}

@@ -16,6 +16,7 @@ module.exports = {
         formborder: '#ddd',
         google: '#4285f4',
         facebook: '#3b5998',
+        link: '#555555',
       },
     },
   },

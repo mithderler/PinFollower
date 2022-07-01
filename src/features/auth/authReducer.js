@@ -23,7 +23,7 @@ const authSlice = createSlice({
       state.authenticated = true;
       state.currentUser = {
         email: payload.email,
-        photoURL: payload.photoURL,
+        // photoURL: payload.photoURL,
         uid: payload.uid,
         displayName: payload.displayName,
       };
@@ -47,7 +47,7 @@ export function verifyAuth() {
         const profileRef = getUserProfileRef(user.uid);
         onSnapshot(profileRef, (snapshot) => {
           dispatch(
-            profileActions.getCurrentUserProfile(organizeSnapshotDoc(snapshot))
+            profileActions.setCurrentUserProfile(organizeSnapshotDoc(snapshot))
           );
           dispatch(asyncActions.appLoaded());
         });

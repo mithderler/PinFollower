@@ -6,6 +6,7 @@ import ScrollButton from './ScrollButton';
 function DocumentLayout({
   containerWidth = 'max-w-3xl',
   title = '',
+  bgColor = 'bg-white',
   children,
 }) {
   return (
@@ -17,7 +18,7 @@ function DocumentLayout({
         <h2 className='mt-24 sm:mt-16 sm:py-5 font-semibold text-2xl'>
           {title}
         </h2>
-        <div className={`p-6 sm:p-10 mt-8 sm:mt-4 bg-white rounded-lg`}>
+        <div className={`p-6 sm:p-10 mt-8 sm:mt-4 rounded-lg ${bgColor}`}>
           {children}
           <ScrollButton />
         </div>

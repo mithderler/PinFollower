@@ -19,6 +19,12 @@ const LoginPage = React.lazy(() => import('../../features/auth/LoginPage'));
 const PinDashboard = React.lazy(() =>
   import('../../features/pins/pinDashboard/PinDashboard')
 );
+const ProfilePage = React.lazy(() =>
+  import('../../features/profiles/ProfilePage')
+);
+const EditProfilePage = React.lazy(() =>
+  import('../../features/profiles/EditProfilePage')
+);
 const About = React.lazy(() => import('../../features/pages/About'));
 const PrivacyPolicy = React.lazy(() =>
   import('../../features/pages/policies/PrivacyPolicy')
@@ -47,6 +53,8 @@ function App() {
             <Route path='users/sign_in' element={<LoginPage />} />
             <Route path='users/sign_up' element={<RegisterPage />} />
             <Route path='users/password/new' element={<ForgotPasswordPage />} />
+            <Route path='profiles/:userId' element={<ProfilePage />} />
+            <Route path='settings/profile' element={<EditProfilePage />} />
             <Route path='pins/new' element={<NewPinPage />} />
             <Route path='about' element={<About />} />
             <Route path='privacy_policy' element={<PrivacyPolicy />} />

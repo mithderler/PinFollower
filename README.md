@@ -16,7 +16,7 @@ You may also see any lint errors in the console.
 
 ### `npm run emulators`
 
-Launches the firebase emulator suite.\
+Launches the firebase emulator suite.
 
 ### `npm test`
 
