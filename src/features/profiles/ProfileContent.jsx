@@ -52,7 +52,7 @@ function ProfileContent({ profile, isCurrentUser }) {
             </div>
           </div>
         </div>
-        <div>Gezmeye, fotoğrafa aşığım</div>
+        <div>{profile?.bio}</div>
       </div>
     </div>
   );

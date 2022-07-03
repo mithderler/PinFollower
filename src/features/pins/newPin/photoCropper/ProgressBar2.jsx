@@ -2,8 +2,20 @@ import { useField } from 'formik';
 import { useEffect } from 'react';
 import useStorageForImage from '../../../../app/hooks/useStorageForImage';
 
-const ProgressBar2 = ({ file, setValue, filename, meta }) => {
-  const { imgURL, progress } = useStorageForImage(file, filename);
+const ProgressBar2 = ({
+  file,
+  setValue,
+  filename,
+  meta,
+  fieldName,
+  directory,
+}) => {
+  const { imgURL, progress } = useStorageForImage(
+    file,
+    filename,
+    fieldName,
+    directory
+  );
 
   useEffect(() => {
     if (imgURL) {

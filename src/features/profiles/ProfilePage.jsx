@@ -68,7 +68,7 @@ function ProfilePage() {
       containerWidth='max-w-6xl'
       bgColor='bg-inherit'
     >
-      <div className='flex flex-col items-center w-full'>
+      <div className='flex flex-col items-center w-full '>
         <ProfileContent
           profile={profile}
           isCurrentUser={currentUser?.uid === profile?.uid}

@@ -5,20 +5,23 @@ import ScrollButton from './ScrollButton';
 
 function DocumentLayout({
   containerWidth = 'max-w-3xl',
-  title = '',
+  marginTop = 'mt-8 sm:mt-4',
+  title = null,
   bgColor = 'bg-white',
   children,
 }) {
   return (
-    <div className='bg-background'>
+    <div className='bg-background min-h-screen flex flex-col'>
       <Navbar />
       <div
-        className={`container ${containerWidth} py-10 sm:py-4 sm:pb-10 px-3`}
+        className={`flex-1 container ${containerWidth} pt-20 sm:pt-12 pb-10 px-3`}
       >
-        <h2 className='mt-24 sm:mt-16 sm:py-5 font-semibold text-2xl'>
-          {title}
-        </h2>
-        <div className={`p-6 sm:p-10 mt-8 sm:mt-4 rounded-lg ${bgColor}`}>
+        {title && (
+          <h2 className='pt-12 sm:pt-12 sm:pb-4 font-semibold text-2xl'>
+            {title}
+          </h2>
+        )}
+        <div className={`p-6 sm:p-10 ${marginTop} rounded-lg ${bgColor}`}>
           {children}
           <ScrollButton />
         </div>

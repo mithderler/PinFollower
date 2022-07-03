@@ -4,14 +4,17 @@ import CropedImgEl from './CropedImgEl';
 import getCroppedImg from './cropImage';
 import { useField } from 'formik';
 import ProgressBar2 from './ProgressBar2';
+import { useTranslation } from 'react-i18next';
 
-const PhotoCropper = ({ ...props }) => {
-  const [field, meta, helpers] = useField(props.name);
+const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
+  const { t } = useTranslation();
+  const [field, meta, helpers] = useField(name);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [croppedImage, setCroppedImage] = useState(null);
   const [croppedImageURL, setCroppedImageURL] = useState(null);
+  const [cropped, setCropped] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const { setValue, setError } = helpers;
 
@@ -29,6 +32,7 @@ const PhotoCropper = ({ ...props }) => {
       // const croppedImage = croppedImageObj.blob;
       setCroppedImage(croppedImageObj.blob);
       setCroppedImageURL(croppedImageObj.url);
+      setCropped(true);
     } catch (e) {
       console.error(e);
     }
@@ -53,7 +57,7 @@ const PhotoCropper = ({ ...props }) => {
               image={meta.value.imgURL}
               crop={crop}
               zoom={zoom}
-              aspect={4 / 3}
+              aspect={fieldName ? 3 / 3 : 4 / 3}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}
@@ -66,7 +70,7 @@ const PhotoCropper = ({ ...props }) => {
               </div>
             )}
             <div className='block md:inline-block flex-1 items-center'>
-              <div className='text-center'>ZOOM</div>
+              <div className='text-center'>{t('photo_cropper.zoom')}</div>
               <input
                 type='range'
                 value={zoom}
@@ -83,14 +87,15 @@ const PhotoCropper = ({ ...props }) => {
                 onClick={showCroppedImage}
                 className='text-white bg-blue-600 rounded py-2 px-4 ml-3'
               >
-                Show Cropped
+                {t('photo_cropper.crop_image')}
               </button>
               <button
                 type='button'
                 onClick={confirmCroppedImage}
-                className='text-white bg-blue-600 rounded py-2 px-4 ml-3'
+                className='text-white bg-blue-600 rounded py-2 px-4 ml-3 disabled:bg-gray-400'
+                disabled={!cropped}
               >
-                Confirm Image
+                {t('photo_cropper.confirm_image')}
               </button>
             </div>
           </div>
@@ -101,10 +106,12 @@ const PhotoCropper = ({ ...props }) => {
           {/* <div>
             <img src={meta.value.imgURL} />
           </div> */}
-          <div className='w-full h-64'>
+          <div className='w-full h-64 flex justify-center items-center'>
             <img
               src={meta.value.croppedImgURL}
-              className='h-full w-full object-contain'
+              className={`h-full w-full object-contain ${
+                rounded ? 'h-40 w-40 rounded-full' : ''
+              }`}
             />
           </div>
         </>
@@ -115,6 +122,8 @@ const PhotoCropper = ({ ...props }) => {
           setValue={setValue}
           filename={meta.value.fileName}
           meta={meta}
+          fieldName={fieldName}
+          directory={directory}
         />
       )}
     </>

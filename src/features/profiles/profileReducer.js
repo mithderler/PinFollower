@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   currentUserProfile: null,
   selectedUserProfile: null,
-  photos: [],
+  pins: [],
+  boards: [],
   followers: [],
   followings: [],
   followingUser: false,

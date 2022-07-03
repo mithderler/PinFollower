@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { GoLocation } from 'react-icons/go';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 import { formatDistance } from 'date-fns';
 import * as locale from 'date-fns/locale';
 import { Link } from 'react-router-dom';
 
 import ReadOnly from '../../../app/common/utils/SlateEditor/ReadOnly';
+import {
+  addUserLike,
+  cancelUserLike,
+} from '../../../app/firebase/firestoreService';
+import { useSelector } from 'react-redux';
 
 function PinListItem({ pin }) {
+  const { authenticated, currentUser } = useSelector((state) => state.auth);
   const [localeLang, setLocaleLang] = useState(null);
+  const [isLiked, setIsLiked] = useState(
+    pin.likeIds?.some((id) => id === currentUser?.uid)
+  );
+  const [likeCount, setLikeCount] = useState(pin?.likeCount);
   const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -20,6 +30,20 @@ function PinListItem({ pin }) {
       setLocaleLang(i18n.language);
     }
   }, [i18n.language]);
+
+  async function addLikeToDb() {
+    if (!authenticated) return;
+    setIsLiked(true);
+    setLikeCount((prev) => prev + 1);
+    await addUserLike(pin.id);
+  }
+
+  async function removeLikeFromDb() {
+    if (!authenticated) return;
+    setIsLiked(false);
+    setLikeCount((prev) => prev - 1);
+    await cancelUserLike(pin.id);
+  }
 
   return (
     <div className='bg-white rounded-xl pb-4 px-4 mb-10'>
@@ -78,9 +102,20 @@ function PinListItem({ pin }) {
 
       <div className='flex items-center pt-4'>
         <div className='w-8 h-8 bg-gray-200 flex items-center justify-center mr-2 rounded-sm'>
-          <AiOutlineHeart />
+          {!isLiked && (
+            <AiOutlineHeart
+              className='w-5 h-5 hover:cursor-pointer hover:text-red-500'
+              onClick={addLikeToDb}
+            />
+          )}
+          {isLiked && (
+            <AiFillHeart
+              className='w-5 h-5 hover:cursor-pointer text-red-500'
+              onClick={removeLikeFromDb}
+            />
+          )}
         </div>
-        <span>2</span>
+        <span>{likeCount}</span>
       </div>
     </div>
   );

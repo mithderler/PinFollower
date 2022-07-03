@@ -10,6 +10,7 @@ import SignedOutMenu from './SignedOutMenu';
 
 function Navbar() {
   const { authenticated } = useSelector((state) => state.auth);
+  const { currentUserProfile } = useSelector((state) => state.profile);
   const [openMenu, setOpenMenu] = useState(false);
   const { t } = useTranslation();
 
@@ -32,9 +33,17 @@ function Navbar() {
             </button>
           </div>
 
-          <HamburgerMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
+          <HamburgerMenu
+            openMenu={openMenu}
+            setOpenMenu={setOpenMenu}
+            currentUserProfile={currentUserProfile}
+          />
 
-          {authenticated ? <SignedInMenu /> : <SignedOutMenu />}
+          {authenticated ? (
+            <SignedInMenu currentUserProfile={currentUserProfile} />
+          ) : (
+            <SignedOutMenu />
+          )}
         </div>
       </div>
     </div>

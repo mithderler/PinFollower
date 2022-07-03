@@ -9,7 +9,7 @@ import { authActions } from '../auth/authReducer';
 import { signOutFirebase } from '../../app/firebase/firebaseService';
 import { toast } from 'react-toastify';
 
-function HamburgerMenu({ openMenu, setOpenMenu }) {
+function HamburgerMenu({ openMenu, setOpenMenu, currentUserProfile }) {
   const { authenticated } = useSelector((state) => state.auth);
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -76,7 +76,10 @@ function HamburgerMenu({ openMenu, setOpenMenu }) {
                 onClick={() => navigate('/')}
               />
               <MenuElement text={t('navbar.navlinks.explore')} />
-              <MenuElement text={t('profile_menu.profile')} />
+              <MenuElement
+                text={t('profile_menu.profile')}
+                onClick={() => navigate(`/profiles/${currentUserProfile?.uid}`)}
+              />
               <MenuElement text={t('profile_menu.settings')} />
               <MenuElement
                 text={t('profile_menu.sign_out')}

@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom';
 import ButtonMain from '../../app/common/buttons/ButtonMain';
 import ProfileMenu from './ProfileMenu';
 
-function SignedInMenu() {
+function SignedInMenu({ currentUserProfile }) {
   const { t } = useTranslation();
-  const { currentUserProfile } = useSelector((state) => state.profile);
 
   return (
     <>

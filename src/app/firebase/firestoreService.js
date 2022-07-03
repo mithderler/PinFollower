@@ -4,11 +4,16 @@ import {
   getDoc,
   getDocs,
   setDoc,
+  updateDoc,
   collection,
   query,
   where,
   serverTimestamp,
   Timestamp,
+  arrayUnion,
+  increment,
+  arrayRemove,
+  orderBy,
 } from 'firebase/firestore';
 import { auth, firestore } from './firebase';
 
@@ -49,6 +54,17 @@ export async function setUserProfileData(user) {
   }
 }
 
+export async function updateUserProfileData(currentProfile, { photoURL, bio }) {
+  try {
+    return await updateDoc(doc(firestore, 'users', currentProfile.uid), {
+      photoURL: photoURL || currentProfile.photoURL,
+      bio,
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
 export function getUserProfileRef(userId) {
   return doc(firestore, 'users', userId);
 }
@@ -66,13 +82,39 @@ export async function addPinToFirestore(pin) {
     location,
     photoDescription,
     imgURL: pin.coverPhoto.croppedImgURL,
+    likeIds: arrayUnion(user.uid),
+    likeCount: 1,
     createdAt: serverTimestamp(),
   });
 }
 
 export async function fetchPinsFromFirestore() {
   const docsRef = collection(firestore, 'pins');
-
-  const snapshot = await getDocs(docsRef);
+  const q = query(docsRef, orderBy('createdAt', 'desc'));
+  const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+}
+
+export function addUserLike(pinId) {
+  const user = auth.currentUser;
+  try {
+    return updateDoc(doc(firestore, 'pins', pinId), {
+      likeIds: arrayUnion(user.uid),
+      likeCount: increment(1),
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export function cancelUserLike(pinId) {
+  const user = auth.currentUser;
+  try {
+    return updateDoc(doc(firestore, 'pins', pinId), {
+      likeIds: arrayRemove(user.uid),
+      likeCount: increment(-1),
+    });
+  } catch (error) {
+    throw error;
+  }
 }
