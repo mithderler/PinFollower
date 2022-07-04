@@ -123,7 +123,7 @@ function PinMap({ ...props }) {
       newAddressSearch: true,
     });
   };
-  console.log('METAA: ', meta.value);
+
   const handleCancelAddress = (e) => {
     setValue(emptyFields);
     e.target.parentNode.firstChild.focus();

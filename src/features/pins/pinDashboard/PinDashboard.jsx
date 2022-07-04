@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import useDocTitle from '../../../app/hooks/useDocTitle';
 import PinList from './PinList';
-import DocumentLayout from '../../../app/layout/DocumentLayout';
+import DefaultLayout from '../../../app/layout/DefaultLayout';
 
 function PinDashboard() {
   const { authenticated } = useSelector((state) => state.auth);
@@ -16,9 +16,9 @@ function PinDashboard() {
   useDocTitle(title);
 
   return (
-    <DocumentLayout bgColor='bg-inherit'>
+    <DefaultLayout bgColor='bg-inherit'>
       <PinList />
-    </DocumentLayout>
+    </DefaultLayout>
   );
 }
 

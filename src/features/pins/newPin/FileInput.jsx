@@ -24,7 +24,14 @@ function FileInput({
       let selectedFile = e.target.files[0];
       if (selectedFile && fileTypes.includes(selectedFile.type)) {
         const fileName = uuidv4() + '.' + getFileExtension(selectedFile.name);
-        setValue({ ...meta.value, file: selectedFile, fileName });
+        setValue({
+          ...meta.value,
+          file: selectedFile,
+          fileName,
+          croppedFile: null,
+          imgURL: null,
+          croppedImgURL: null,
+        });
         setError(null);
       } else {
         // setValue({ file: null, imgURL: null });

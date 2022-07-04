@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import DocumentLayout from '../../../../app/layout/DocumentLayout';
+import DefaultLayout from '../../../../app/layout/DefaultLayout';
 import En from './En';
 import Tr from './Tr';
 
@@ -18,12 +18,12 @@ function PrivacyPolicy() {
   }
 
   return (
-    <DocumentLayout
+    <DefaultLayout
       title={t('pages.polices.privacy_policy')}
       containerWidth='max-w-6xl'
     >
       {docEl}
-    </DocumentLayout>
+    </DefaultLayout>
   );
 }
 

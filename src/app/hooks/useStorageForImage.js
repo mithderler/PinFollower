@@ -37,7 +37,7 @@ const useStorageForImage = (
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log('File available at', downloadURL);
+          // console.log('File available at', downloadURL);
           setImgURL(downloadURL);
         });
       }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import DocumentLayout from '../../../app/layout/DocumentLayout';
+import DefaultLayout from '../../../app/layout/DefaultLayout';
 import En from './En';
 import Tr from './Tr';
 
@@ -18,9 +18,9 @@ function About() {
   }
 
   return (
-    <DocumentLayout title={t('pages.about')} containerWidth='max-w-6xl'>
+    <DefaultLayout title={t('pages.about')} containerWidth='max-w-6xl'>
       {docEl}
-    </DocumentLayout>
+    </DefaultLayout>
   );
 }
 

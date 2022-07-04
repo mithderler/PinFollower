@@ -5,24 +5,25 @@ import { auth, firestore } from '../../../app/firebase/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { pinActions } from '../pinReducer';
 import { onSnapshot, collection } from 'firebase/firestore';
+import { asyncActions } from '../../../app/async/asyncReducer';
 
 function PinList() {
-  const [loading, setLoading] = useState(true);
-  const { currentUser } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.async);
   const { pins } = useSelector((state) => state.pin);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function getPins() {
-      try {
-        setLoading(true);
-        const pinArr = await fetchPinsFromFirestore();
-        dispatch(pinActions.fetchPins(pinArr));
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
+  async function getPins() {
+    dispatch(asyncActions.asyncActionStart());
+    try {
+      const pinArr = await fetchPinsFromFirestore();
+      dispatch(pinActions.fetchPins(pinArr));
+      dispatch(asyncActions.asyncActionFinish());
+    } catch (error) {
+      console.error(error);
+      dispatch(asyncActions.asyncActionError());
     }
+  }
+  useEffect(() => {
     getPins();
   }, [dispatch]);
 

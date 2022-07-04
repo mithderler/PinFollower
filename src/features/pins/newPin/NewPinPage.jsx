@@ -1,14 +1,14 @@
 import React from 'react';
 
-import DocumentLayout from '../../../app/layout/DocumentLayout';
-import NewPinForm from './NewPinForm';
+import DefaultLayout from '../../../app/layout/DefaultLayout';
+import PinForm from './PinForm';
 
-function newPinPage() {
+function NewPinPage() {
   return (
-    <DocumentLayout containerWidth='max-w-3xl lg:max-w-4xl' marginTop='mt-12'>
-      <NewPinForm />
-    </DocumentLayout>
+    <DefaultLayout containerWidth='max-w-3xl lg:max-w-4xl' marginTop='mt-12'>
+      <PinForm />
+    </DefaultLayout>
   );
 }
 
-export default newPinPage;
+export default NewPinPage;

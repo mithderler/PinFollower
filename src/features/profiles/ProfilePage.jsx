@@ -9,7 +9,7 @@ import {
 } from '../../app/firebase/firestoreService';
 import { onSnapshot } from 'firebase/firestore';
 
-import DocumentLayout from '../../app/layout/DocumentLayout';
+import DefaultLayout from '../../app/layout/DefaultLayout';
 import ProfileContent from './ProfileContent';
 import { profileActions } from './profileReducer';
 import { asyncActions } from '../../app/async/asyncReducer';
@@ -63,7 +63,7 @@ function ProfilePage() {
   if ((loading && !profile) || (!profile && !error)) return <Spinner />;
 
   return (
-    <DocumentLayout
+    <DefaultLayout
       title={t('profile.title')}
       containerWidth='max-w-6xl'
       bgColor='bg-inherit'
@@ -75,7 +75,7 @@ function ProfilePage() {
         />
         {/* <div>Pins Map</div> */}
       </div>
-    </DocumentLayout>
+    </DefaultLayout>
   );
 }
 

@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import Spinner from '../common/spinner/Spinner';
+import EditPinPage from '../../features/pins/newPin/EditPinPage';
 
 const NewPinPage = React.lazy(() =>
   import('../../features/pins/newPin/NewPinPage')
@@ -56,6 +57,8 @@ function App() {
             <Route path='profiles/:userId' element={<ProfilePage />} />
             <Route path='settings/profile' element={<EditProfilePage />} />
             <Route path='pins/new' element={<NewPinPage />} />
+            {/* <Route path='pins/:pinId' element={<PinPage />} /> */}
+            <Route path='pins/:pinId/edit' element={<EditPinPage />} />
             <Route path='about' element={<About />} />
             <Route path='privacy_policy' element={<PrivacyPolicy />} />
             <Route path='terms_of_use' element={<TermsOfUse />} />

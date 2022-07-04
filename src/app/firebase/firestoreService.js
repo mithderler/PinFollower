@@ -5,15 +5,17 @@ import {
   getDocs,
   setDoc,
   updateDoc,
+  deleteDoc,
   collection,
   query,
   where,
+  orderBy,
+  writeBatch,
   serverTimestamp,
   Timestamp,
   arrayUnion,
   increment,
   arrayRemove,
-  orderBy,
 } from 'firebase/firestore';
 import { auth, firestore } from './firebase';
 
@@ -55,15 +57,43 @@ export async function setUserProfileData(user) {
 }
 
 export async function updateUserProfileData(currentProfile, { photoURL, bio }) {
+  const batch = writeBatch(firestore);
   try {
-    return await updateDoc(doc(firestore, 'users', currentProfile.uid), {
+    const currentProfileRef = doc(firestore, 'users', currentProfile.uid);
+
+    batch.update(currentProfileRef, {
       photoURL: photoURL || currentProfile.photoURL,
       bio,
     });
+
+    if (photoURL) {
+      const pinsRef = query(
+        collection(firestore, 'pins'),
+        where('ownerUid', '==', currentProfile.uid)
+      );
+      const pinsSnapshot = await getDocs(pinsRef);
+      pinsSnapshot.forEach((pin) => {
+        batch.update(pin.ref, {
+          ownerPhotoURL: photoURL,
+        });
+      });
+    }
+
+    await batch.commit();
   } catch (error) {
     throw error;
   }
 }
+// export async function updateUserProfileData(currentProfile, { photoURL, bio }) {
+//   try {
+//     return await updateDoc(doc(firestore, 'users', currentProfile.uid), {
+//       photoURL: photoURL || currentProfile.photoURL,
+//       bio,
+//     });
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 export function getUserProfileRef(userId) {
   return doc(firestore, 'users', userId);
@@ -86,6 +116,27 @@ export async function addPinToFirestore(pin) {
     likeCount: 1,
     createdAt: serverTimestamp(),
   });
+}
+
+export async function updatePinInFirestore(pin, pinId) {
+  const { pinName, description, tags, location, photoDescription } = pin;
+  try {
+    return await updateDoc(doc(firestore, 'pins', pinId), {
+      pinName,
+      description,
+      tags,
+      location,
+      photoDescription,
+      imgURL: pin.coverPhoto.croppedImgURL,
+      updatedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deletePinInFirestore(pinId) {
+  return await deleteDoc(doc(firestore, 'pins', pinId));
 }
 
 export async function fetchPinsFromFirestore() {

@@ -6,7 +6,7 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import ReactTooltip from 'react-tooltip';
 
 import useDocTitle from '../../app/hooks/useDocTitle';
-import DocumentLayout from '../../app/layout/DocumentLayout';
+import DefaultLayout from '../../app/layout/DefaultLayout';
 import TextArea from '../../app/common/form/TextArea';
 import FileInput from '../pins/newPin/FileInput';
 import PhotoCropper from '../pins/newPin/photoCropper/PhotoCropper';
@@ -32,7 +32,7 @@ function EditProfilePage() {
   }
 
   return (
-    <DocumentLayout title={t('profile.edit')} containerWidth='max-w-2xl'>
+    <DefaultLayout title={t('profile.edit')} containerWidth='max-w-2xl'>
       <Formik
         initialValues={{
           newProfilePhoto: {
@@ -46,7 +46,6 @@ function EditProfilePage() {
         }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           const convertedData = convertData(values);
-          console.log('values: ', convertedData);
           try {
             await updateUserProfileData(currentUserProfile, convertedData);
             navigate(`/profiles/${currentUserProfile?.uid}`);
@@ -122,7 +121,7 @@ function EditProfilePage() {
           </Form>
         )}
       </Formik>
-    </DocumentLayout>
+    </DefaultLayout>
   );
 }
 

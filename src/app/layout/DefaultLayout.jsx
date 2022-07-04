@@ -3,7 +3,7 @@ import Footer from '../../features/footer/Footer';
 import Navbar from '../../features/nav/Navbar';
 import ScrollButton from './ScrollButton';
 
-function DocumentLayout({
+function DefaultLayout({
   containerWidth = 'max-w-3xl',
   marginTop = 'mt-8 sm:mt-4',
   title = null,
@@ -31,4 +31,4 @@ function DocumentLayout({
   );
 }
 
-export default DocumentLayout;
+export default DefaultLayout;

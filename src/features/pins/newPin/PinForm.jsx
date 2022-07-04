@@ -10,34 +10,39 @@ import PhotoCropper from './photoCropper/PhotoCropper';
 import PinMap from './googleMap/PinMap';
 import TextArea from '../../../app/common/form/TextArea';
 import TextInput from '../../../app/common/form/TextInput';
-import { addPinToFirestore } from '../../../app/firebase/firestoreService';
+import {
+  addPinToFirestore,
+  updatePinInFirestore,
+} from '../../../app/firebase/firestoreService';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
-function NewPinForm() {
+function PinForm({ selectedPin }) {
   const fileTypes = ['image/png', 'image/jpeg'];
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Formik
       initialValues={{
-        pinName: '',
-        location: {
+        pinName: selectedPin?.pinName || '',
+        location: selectedPin?.location || {
           locationName: '',
           address: '',
           latLng: null,
           newAddressSearch: false,
         },
-        photoDescription: '',
+        photoDescription: selectedPin?.photoDescription || '',
         coverPhoto: {
           file: null,
           croppedFile: null,
           fileName: '',
-          imgURL: null,
+          imgURL: selectedPin?.imgURL || null,
           croppedImgURL: null,
         },
-        tags: [],
-        description: [
+        tags: selectedPin?.tags.join(', ') || [],
+        description: selectedPin?.description || [
           {
             type: 'paragraph',
             children: [{ text: '' }],
@@ -50,15 +55,24 @@ function NewPinForm() {
         photoDescription: Yup.string(),
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
+        console.log('valuess: ', values);
         const tags = getTagsArr(values.tags);
         const editedValues = { ...values, tags };
         console.log(editedValues);
         try {
-          await addPinToFirestore(editedValues);
+          console.log('act');
+          if (selectedPin) {
+            console.log('activated');
+            await updatePinInFirestore(editedValues, selectedPin.id);
+          } else {
+            console.log('deactive');
+            await addPinToFirestore(editedValues);
+          }
           setSubmitting(false);
           navigate('/');
         } catch (error) {
           toast.error(error.message);
+          console.log('ERROR: ', error);
           setSubmitting(false);
         }
       }}
@@ -71,8 +85,9 @@ function NewPinForm() {
           <Label title='Address' htmlFor='location'>
             <PinMap name='location' />
           </Label>
-          <Label title='Cover Photo' htmlFor='coverPhoto'>
-            {!values.coverPhoto.imgURL && (
+          <Label title='Cover Photo' htmlFor='coverPhoto' className='space-y-1'>
+            {(!values.coverPhoto.imgURL ||
+              (!values.coverPhoto.file && selectedPin?.imgURL)) && (
               <FileInput name='coverPhoto' fileTypes={fileTypes} />
             )}
             {values.coverPhoto.imgURL && <PhotoCropper name='coverPhoto' />}
@@ -98,7 +113,7 @@ function NewPinForm() {
             </div>
           </Label>
           <ButtonMain type='submit' className='rounded-3xl'>
-            Create Pin
+            {selectedPin ? t('pin_form.update_pin') : t('pin_form.create_pin')}
           </ButtonMain>
         </Form>
       )}
@@ -106,9 +121,9 @@ function NewPinForm() {
   );
 }
 
-function Label({ title, htmlFor, children }) {
+function Label({ title, htmlFor, children, className }) {
   return (
-    <div className='w-full flex flex-col mb-4'>
+    <div className={`w-full flex flex-col mb-4 ${className}`}>
       <label className='mb-2 font-medium' htmlFor={htmlFor}>
         {title}
       </label>
@@ -133,4 +148,4 @@ function onKeyDown(keyEvent) {
   }
 }
 
-export default NewPinForm;
+export default PinForm;

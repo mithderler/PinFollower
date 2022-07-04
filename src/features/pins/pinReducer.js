@@ -11,6 +11,10 @@ const pinSlice = createSlice({
     fetchPins(state, { payload }) {
       state.pins = payload;
     },
+    deletePin(state, { payload }) {
+      console.log('payloadd:', payload);
+      state.pins = [...state.pins.filter((pin) => pin.id !== payload)];
+    },
   },
 });
 

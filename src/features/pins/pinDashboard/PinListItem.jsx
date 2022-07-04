@@ -13,6 +13,7 @@ import {
   cancelUserLike,
 } from '../../../app/firebase/firestoreService';
 import { useSelector } from 'react-redux';
+import UserPinMenu from './UserPinMenu';
 
 function PinListItem({ pin }) {
   const { authenticated, currentUser } = useSelector((state) => state.auth);
@@ -46,33 +47,38 @@ function PinListItem({ pin }) {
   }
 
   return (
-    <div className='bg-white rounded-xl pb-4 px-4 mb-10'>
-      <div className='h-14 flex items-center'>
-        <img
-          src={pin.ownerPhotoURL || '/assets/img/user.png'}
-          className='h-10 w-10 rounded-full mr-2'
-          alt='user'
-        />
-        <div className='block m-2'>
-          <span className='text-lg text-black'>
-            <Link
-              to={`/profiles/${pin.ownerUid}`}
-              className='cursor-pointer transition ease-in delay-100 hover:text-main'
-            >
-              {pin.ownerUsername}
-            </Link>
-          </span>
-          <div className='text-xs'>
-            {formatDistance(
-              new Date(pin.createdAt.seconds * 1000),
-              new Date(),
-              {
-                addSuffix: true,
-                locale: locale[localeLang],
-              }
-            )}
+    <div className='bg-white rounded-xl py-4 px-4 mb-10'>
+      <div className='flex justify-between items-center'>
+        <div className='h-14 flex items-center'>
+          <img
+            src={pin.ownerPhotoURL || '/assets/img/user.png'}
+            className='h-10 w-10 rounded-full mr-2'
+            alt='user'
+          />
+          <div className='block m-2'>
+            <span className='text-lg text-black'>
+              <Link
+                to={`/profiles/${pin.ownerUid}`}
+                className='cursor-pointer transition ease-in delay-100 hover:text-main'
+              >
+                {pin.ownerUsername}
+              </Link>
+            </span>
+            <div className='text-xs'>
+              {formatDistance(
+                new Date(pin.createdAt.seconds * 1000),
+                new Date(),
+                {
+                  addSuffix: true,
+                  locale: locale[localeLang],
+                }
+              )}
+            </div>
           </div>
         </div>
+        {authenticated && currentUser.uid === pin.ownerUid && (
+          <UserPinMenu pin={pin} />
+        )}
       </div>
 
       <div className='mt-1'>
@@ -80,11 +86,13 @@ function PinListItem({ pin }) {
           <GoLocation />
           <span className='ml-1'>{pin.location.address}</span>
         </div>
-        <img
-          className='w-full h-80 mt-4 object-cover rounded-xl'
-          src={pin.imgURL}
-          alt='pin_image'
-        />
+        {pin.imgURL && (
+          <img
+            className='w-full h-80 mt-4 object-cover rounded-xl'
+            src={pin.imgURL}
+            alt='pin_image'
+          />
+        )}
         <div className='py-4'>
           <span>
             {pin.tags.map((tag) => (

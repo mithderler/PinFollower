@@ -8,11 +8,10 @@ const ProgressBar = ({ file, meta, setValue, fieldName, directory }) => {
     fieldName,
     directory
   );
-  console.log('FILEEE: ', file);
+
   useEffect(() => {
     if (imgURL) {
       setValue({ ...meta.value, imgURL });
-      console.log('urlss: ', imgURL);
     }
   }, [imgURL]);
 

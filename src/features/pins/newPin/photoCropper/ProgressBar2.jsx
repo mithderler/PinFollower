@@ -20,7 +20,6 @@ const ProgressBar2 = ({
   useEffect(() => {
     if (imgURL) {
       setValue({ ...meta.value, croppedImgURL: imgURL });
-      console.log('new URLL: ', imgURL);
     }
   }, [imgURL]);
 

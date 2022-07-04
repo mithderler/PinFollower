@@ -28,7 +28,6 @@ const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
         meta.value.imgURL,
         croppedAreaPixels
       );
-      console.log('donee', { croppedImageObj });
       // const croppedImage = croppedImageObj.blob;
       setCroppedImage(croppedImageObj.blob);
       setCroppedImageURL(croppedImageObj.url);
@@ -43,7 +42,6 @@ const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
   }, []);
 
   const confirmCroppedImage = () => {
-    console.log('crpImg: ', croppedImage);
     setValue({ ...meta.value, croppedFile: croppedImage });
     setConfirmed(true);
   };
