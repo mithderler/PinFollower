@@ -1,25 +1,23 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { onSnapshot } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import {
   getUserProfileRef,
   organizeSnapshotDoc,
 } from '../../app/firebase/firestoreService';
-import { onSnapshot } from 'firebase/firestore';
-
 import DefaultLayout from '../../app/layout/DefaultLayout';
 import ProfileContent from './ProfileContent';
-import { profileActions } from './profileReducer';
-import { asyncActions } from '../../app/async/asyncReducer';
 import Spinner from '../../app/common/spinner/Spinner';
+import { asyncActions } from '../../app/async/asyncReducer';
+import { profileActions } from './profileReducer';
 
 function ProfilePage() {
   const { t } = useTranslation();
   const params = useParams();
   const dispatch = useDispatch();
-
   const { currentUserProfile, selectedUserProfile } = useSelector(
     (state) => state.profile
   );
@@ -33,11 +31,11 @@ function ProfilePage() {
       profileRef,
       (snapshot) => {
         if (!snapshot.exists) {
-          console.log('User not found!');
+          console.log(t('profile.user_not_found'));
           dispatch(
             asyncActions.asyncActionError({
-              code: 'not-found',
-              message: 'Could not find document',
+              code: t('profile.not_found'),
+              message: t('profile.user_not_found'),
             })
           );
           return;

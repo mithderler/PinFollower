@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function Tr() {
   return (
@@ -59,5 +59,9 @@ function Tr() {
 const Heading = ({ children }) => (
   <h3 className='text-xl font-semibold'>{children}</h3>
 );
+
+Heading.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 
 export default Tr;

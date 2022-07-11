@@ -1,7 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import ButtonMain from '../../app/common/buttons/ButtonMain';
 import ProfileMenu from './ProfileMenu';
 
@@ -29,5 +29,14 @@ function Navlink({ name, link = '' }) {
     </li>
   );
 }
+
+SignedInMenu.propTypes = {
+  currentUserProfile: PropTypes.object,
+};
+
+Navlink.propTypes = {
+  name: PropTypes.string.isRequired,
+  link: PropTypes.string,
+};
 
 export default SignedInMenu;

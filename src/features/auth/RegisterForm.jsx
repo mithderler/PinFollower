@@ -1,12 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 
 import TextInput from '../../app/common/form/TextInput';
-import { registerInFirebase } from '../../app/firebase/firebaseService';
 import { getLocaleText } from '../../app/common/utils/errorMatches';
+import { registerInFirebase } from '../../app/firebase/firebaseService';
 
 function RegisterForm({ onSubmit }) {
   const { t } = useTranslation();
@@ -107,5 +108,9 @@ function RegisterForm({ onSubmit }) {
     </Formik>
   );
 }
+
+RegisterForm.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default RegisterForm;

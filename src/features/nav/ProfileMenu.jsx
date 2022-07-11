@@ -1,16 +1,14 @@
 import { Fragment } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import { Menu, Transition } from '@headlessui/react';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
+import { DEFAULT_USER_AVATAR_URL } from '../../app/common/constants/urlConstants';
 import { authActions } from '../auth/authReducer';
 import { signOutFirebase } from '../../app/firebase/firebaseService';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 
 function ProfileMenu({ currentUserProfile }) {
   const { t } = useTranslation();
@@ -29,10 +27,10 @@ function ProfileMenu({ currentUserProfile }) {
       <div>
         <Menu.Button className='inline-flex justify-center w-full border-gray-300 shadow-sm  bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none'>
           <img
-            src={currentUserProfile?.photoURL || '/assets/img/user.png'}
+            src={currentUserProfile?.photoURL || DEFAULT_USER_AVATAR_URL}
             className='h-8 w-8 rounded-full object-cover hover:cursor-pointer'
             referrerPolicy='no-referrer'
-            alt='user'
+            alt='user-image'
           />
         </Menu.Button>
       </div>
@@ -80,6 +78,18 @@ const MenuItem = ({ text, ...props }) => {
       )}
     </Menu.Item>
   );
+};
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+ProfileMenu.propTypes = {
+  currentUserProfile: PropTypes.object,
+};
+
+MenuItem.propTypes = {
+  text: PropTypes.string,
 };
 
 export default ProfileMenu;

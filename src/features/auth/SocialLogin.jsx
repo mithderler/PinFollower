@@ -1,13 +1,13 @@
-import React from 'react';
-import { FaGoogle } from 'react-icons/fa';
 import { FaFacebookF } from 'react-icons/fa';
-import { signInWithProvider } from '../../app/firebase/firebaseService';
+import { FaGoogle } from 'react-icons/fa';
 import { GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
-import { setUserDataForSignIn } from './authReducer';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
+import { setUserDataForSignIn } from './authReducer';
+import { signInWithProvider } from '../../app/firebase/firebaseService';
 
 function SocialLogin() {
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ function SocialLogin() {
       >
         <FaGoogle className='text-white' />
         <p className='w-4/5 text-center text-white ml-4'>
-          Google ile Giriş Yap
+          {t('social_login.google')}
         </p>
       </button>
       <button
@@ -49,7 +49,7 @@ function SocialLogin() {
         <FaFacebookF className='text-white' />
 
         <p className='w-4/5 text-center text-white ml-4'>
-          Facebook ile Giriş Yap
+          {t('social_login.facebook')}
         </p>
       </button>
     </div>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import DefaultLayout from '../../../app/layout/DefaultLayout';
 import PinForm from './PinForm';
 

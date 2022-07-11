@@ -1,10 +1,9 @@
-import React from 'react';
 import { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import {
   MaterialSlate,
   MaterialEditable,
   createMaterialEditor,
-  Toolbar,
   HoveringToolbar,
 } from './Editor';
 
@@ -27,9 +26,12 @@ export default function ReadOnly({ userText }) {
       value={value}
       onChange={(value) => setValue(value)}
     >
-      {/* <Toolbar></Toolbar> */}
       <HoveringToolbar></HoveringToolbar>
       <MaterialEditable readOnly={true} />
     </MaterialSlate>
   );
 }
+
+ReadOnly.propTypes = {
+  userText: PropTypes.array,
+};

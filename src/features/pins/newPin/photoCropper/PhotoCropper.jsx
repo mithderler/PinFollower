@@ -1,14 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import Cropper from 'react-easy-crop';
-import CropedImgEl from './CropedImgEl';
-import getCroppedImg from './cropImage';
 import { useField } from 'formik';
-import ProgressBar2 from './ProgressBar2';
 import { useTranslation } from 'react-i18next';
+
+import CropedImgEl from './CropedImgEl';
+import ProgressBar2 from './ProgressBar2';
+import getCroppedImg from './cropImage';
 
 const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
   const { t } = useTranslation();
-  const [field, meta, helpers] = useField(name);
+  const [meta, helpers] = useField(name);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -16,9 +18,9 @@ const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
   const [croppedImageURL, setCroppedImageURL] = useState(null);
   const [cropped, setCropped] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
-  const { setValue, setError } = helpers;
+  const { setValue } = helpers;
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  const onCropComplete = useCallback((croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
@@ -28,7 +30,6 @@ const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
         meta.value.imgURL,
         croppedAreaPixels
       );
-      // const croppedImage = croppedImageObj.blob;
       setCroppedImage(croppedImageObj.blob);
       setCroppedImageURL(croppedImageObj.url);
       setCropped(true);
@@ -126,6 +127,13 @@ const PhotoCropper = ({ name, rounded, fieldName, directory }) => {
       )}
     </>
   );
+};
+
+PhotoCropper.propTypes = {
+  name: PropTypes.string.isRequired,
+  rounded: PropTypes.bool,
+  fieldName: PropTypes.string,
+  directory: PropTypes.string,
 };
 
 export default PhotoCropper;

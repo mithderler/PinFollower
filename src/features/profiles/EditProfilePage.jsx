@@ -1,26 +1,25 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Formik, Form } from 'formik';
-import { AiOutlineCamera } from 'react-icons/ai';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
-
-import useDocTitle from '../../app/hooks/useDocTitle';
-import DefaultLayout from '../../app/layout/DefaultLayout';
-import TextArea from '../../app/common/form/TextArea';
-import FileInput from '../pins/newPin/FileInput';
-import PhotoCropper from '../pins/newPin/photoCropper/PhotoCropper';
-import ButtonMain from '../../app/common/buttons/ButtonMain';
-import { PROFILE_PHOTOS } from '../../app/common/constants/storageConstants';
-import { updateUserProfileData } from '../../app/firebase/firestoreService';
+import { AiOutlineCamera } from 'react-icons/ai';
+import { Formik, Form } from 'formik';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
+import ButtonMain from '../../app/common/buttons/ButtonMain';
+import DefaultLayout from '../../app/layout/DefaultLayout';
+import FileInput from '../pins/newPin/FileInput';
+import PhotoCropper from '../pins/newPin/photoCropper/PhotoCropper';
+import TextArea from '../../app/common/form/TextArea';
+import useDocTitle from '../../app/hooks/useDocTitle';
+import { PROFILE_PHOTOS } from '../../app/common/constants/storageConstants';
+import { updateUserProfileData } from '../../app/firebase/firestoreService';
 
 function EditProfilePage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { currentUserProfile } = useSelector((state) => state.profile);
-
   useDocTitle(t('profile.edit'));
   const fileTypes = ['image/png', 'image/jpeg'];
 
@@ -135,5 +134,11 @@ function Label({ title, htmlFor, children }) {
     </div>
   );
 }
+
+Label.propTypes = {
+  title: PropTypes.string.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  children: PropTypes.object.isRequired,
+};
 
 export default EditProfilePage;

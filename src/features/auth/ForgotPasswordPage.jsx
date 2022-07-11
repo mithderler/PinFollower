@@ -1,18 +1,16 @@
-import React from 'react';
+import * as Yup from 'yup';
+import { Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
+
 import {
   APP_TRADEMARK,
   CURRENT_YEAR,
 } from '../../app/common/constants/AppConstants';
-import LoginForm from './LoginForm';
-import SocialLogin from './SocialLogin';
-import useDocTitle from '../../app/hooks/useDocTitle';
-import { Form, Formik } from 'formik';
 import TextInput from '../../app/common/form/TextInput';
-import { sendPassResetEmail } from '../../app/firebase/firebaseService';
+import useDocTitle from '../../app/hooks/useDocTitle';
 import { getLocaleText } from '../../app/common/utils/errorMatches';
+import { sendPassResetEmail } from '../../app/firebase/firebaseService';
 
 function ForgotPasswordPage() {
   const { t } = useTranslation();
@@ -43,7 +41,6 @@ function ForgotPasswordPage() {
               onSubmit={async (values, { setSubmitting, setErrors }) => {
                 try {
                   setSubmitting(true);
-                  console.log(values);
                   await sendPassResetEmail(values);
                   setErrors({
                     auth: t(
@@ -52,7 +49,7 @@ function ForgotPasswordPage() {
                   });
                   setSubmitting(false);
                 } catch (error) {
-                  console.log('HATA: ', error);
+                  console.log(error);
                   const errorLocaleText = getLocaleText(error.code);
                   setErrors({
                     auth: t(`forgot_password_page.auth.${errorLocaleText}`),

@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { authActions } from '../auth/authReducer';
 import { signOutFirebase } from '../../app/firebase/firebaseService';
-import { toast } from 'react-toastify';
 
 function HamburgerMenu({ openMenu, setOpenMenu, currentUserProfile }) {
   const { authenticated } = useSelector((state) => state.auth);
@@ -102,6 +102,17 @@ const MenuElement = ({ text, className, ...props }) => {
       {text}
     </li>
   );
+};
+
+HamburgerMenu.propTypes = {
+  openMenu: PropTypes.bool.isRequired,
+  setOpenMenu: PropTypes.func.isRequired,
+  currentUserProfile: PropTypes.object,
+};
+
+MenuElement.propTypes = {
+  text: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default HamburgerMenu;

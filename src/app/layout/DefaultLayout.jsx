@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+
 import Footer from '../../features/footer/Footer';
 import Navbar from '../../features/nav/Navbar';
 import ScrollButton from './ScrollButton';
@@ -30,5 +31,13 @@ function DefaultLayout({
     </div>
   );
 }
+
+DefaultLayout.propTypes = {
+  containerWidth: PropTypes.string,
+  marginTop: PropTypes.string,
+  title: PropTypes.string,
+  bgColor: PropTypes.string,
+  children: PropTypes.object.isRequired,
+};
 
 export default DefaultLayout;

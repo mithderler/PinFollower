@@ -5,7 +5,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 import Spinner from '../common/spinner/Spinner';
-import EditPinPage from '../../features/pins/newPin/EditPinPage';
+
+const EditPinPage = React.lazy(() =>
+  import('../../features/pins/newPin/EditPinPage')
+);
 
 const NewPinPage = React.lazy(() =>
   import('../../features/pins/newPin/NewPinPage')

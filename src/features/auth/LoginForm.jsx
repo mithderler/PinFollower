@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field } from 'formik';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import {
-  getAuth,
-  setPersistence,
-  browserSessionPersistence,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
 
 import { authActions } from './authReducer';
 import TextInput from '../../app/common/form/TextInput';
@@ -17,7 +11,6 @@ import {
   signInWithEmailAndRemember,
   signInWithEmailForOneSession,
 } from '../../app/firebase/firebaseService';
-import { toast } from 'react-toastify';
 import { getLocaleText } from '../../app/common/utils/errorMatches';
 
 function LoginForm() {
@@ -60,7 +53,6 @@ function LoginForm() {
           }
           const userCredential = {
             email: user.email,
-            // photoURL: user.photoURL,
             uid: user.uid,
             displayName: user.displayName,
           };

@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import useStorageForImage from '../../../app/hooks/useStorageForImage';
 
 const ProgressBar = ({ file, meta, setValue, fieldName, directory }) => {
@@ -21,6 +23,12 @@ const ProgressBar = ({ file, meta, setValue, fieldName, directory }) => {
       style={{ width: progress + '%' }}
     ></div>
   );
+};
+
+ProgressBar.propTypes = {
+  setValue: PropTypes.func.isRequired,
+  fieldName: PropTypes.string,
+  directory: PropTypes.string,
 };
 
 export default ProgressBar;

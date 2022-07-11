@@ -1,7 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { BsTwitter, BsInstagram } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
+import { BsTwitter, BsInstagram } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import {
   APP_TRADEMARK,
@@ -9,7 +9,6 @@ import {
   CURRENT_YEAR,
 } from '../../app/common/constants/AppConstants';
 import LanguageMenu from './LanguageMenu';
-import { Link } from 'react-router-dom';
 
 function Footer() {
   const { t } = useTranslation();

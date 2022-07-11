@@ -1,6 +1,7 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import ButtonMain from '../../app/common/buttons/ButtonMain';
 
 function ProfileContent({ profile, isCurrentUser }) {
@@ -57,5 +58,10 @@ function ProfileContent({ profile, isCurrentUser }) {
     </div>
   );
 }
+
+ProfileContent.propTypes = {
+  profile: PropTypes.object.isRequired,
+  isCurrentUser: PropTypes.bool.isRequired,
+};
 
 export default ProfileContent;

@@ -1,18 +1,18 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-import useDocTitle from '../../../app/hooks/useDocTitle';
-import PinList from './PinList';
 import DefaultLayout from '../../../app/layout/DefaultLayout';
+import PinList from './PinList';
+import useDocTitle from '../../../app/hooks/useDocTitle';
 
 function PinDashboard() {
   const { authenticated } = useSelector((state) => state.auth);
   const { t } = useTranslation();
+
   const title = authenticated
     ? t('navbar.navlinks.home')
     : t('navbar.navlinks.explore');
-
   useDocTitle(title);
 
   return (

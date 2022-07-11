@@ -1,15 +1,15 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import {
   APP_TRADEMARK,
   CURRENT_YEAR,
 } from '../../app/common/constants/AppConstants';
 import RegisterForm from './RegisterForm';
-import SocialLogin from './SocialLogin';
 import useDocTitle from '../../app/hooks/useDocTitle';
+
 function RegisterPage() {
   const { t } = useTranslation();
   useDocTitle(t('navbar.navlinks.sign_up'));
@@ -80,6 +80,10 @@ function RegisterPage() {
 
 const LinkStyle = ({ text }) => {
   return <span className='text-main font-semibold ml-2'>{text}</span>;
+};
+
+LinkStyle.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
 export default RegisterPage;

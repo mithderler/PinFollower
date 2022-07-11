@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { AiOutlineMail } from 'react-icons/ai';
 
 function En() {
@@ -159,5 +159,9 @@ function En() {
 const Heading = ({ children }) => (
   <h3 className='text-xl font-semibold'>{children}</h3>
 );
+
+Heading.propTypes = {
+  children: PropTypes.string.isRequired,
+};
 
 export default En;

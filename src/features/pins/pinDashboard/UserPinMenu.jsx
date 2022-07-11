@@ -1,16 +1,13 @@
 import { Fragment } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { Menu, Transition } from '@headlessui/react';
+import PropTypes from 'prop-types';
 import { BsThreeDots } from 'react-icons/bs';
+import { Menu, Transition } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { deletePinInFirestore } from '../../../app/firebase/firestoreService';
 import { pinActions } from '../pinReducer';
-import { useNavigate } from 'react-router-dom';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 
 function UserPinMenu({ pin }) {
   const { t } = useTranslation();
@@ -71,6 +68,18 @@ const MenuItem = ({ text, ...props }) => {
       )}
     </Menu.Item>
   );
+};
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+UserPinMenu.propTypes = {
+  pin: PropTypes.object.isRequired,
+};
+
+MenuItem.propTypes = {
+  text: PropTypes.string.isRequired,
 };
 
 export default UserPinMenu;

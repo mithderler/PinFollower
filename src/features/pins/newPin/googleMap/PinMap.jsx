@@ -1,5 +1,5 @@
 /* global google */
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import {
   GoogleMap,
   useLoadScript,

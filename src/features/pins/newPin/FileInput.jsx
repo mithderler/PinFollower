@@ -1,8 +1,7 @@
-import { useField } from 'formik';
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import { useField } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
+
 import ProgressBar from '../../../features/pins/newPin/ProgressBar';
 import { getFileExtension } from '../../../app/common/utils/helpers';
 
@@ -13,9 +12,9 @@ function FileInput({
   hiddenButton,
   ...props
 }) {
-  const [field, meta, helpers] = useField(props.name);
+  const [meta, helpers] = useField(props.name);
   const { error } = meta;
-  const { file, imgURL } = meta.value;
+  const { file } = meta.value;
   const { setValue, setError } = helpers;
 
   function handleFileChange(e) {
@@ -75,8 +74,11 @@ function FileInput({
 }
 
 FileInput.protoTypes = {
-  name: PropTypes.string,
-  fileTypes: PropTypes.arrayOf(PropTypes.string),
+  name: PropTypes.string.isRequired,
+  fileTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  fieldName: PropTypes.string,
+  directory: PropTypes.string,
+  hiddenButton: PropTypes.bool,
 };
 
 export default FileInput;

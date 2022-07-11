@@ -1,22 +1,19 @@
 import { Fragment } from 'react';
+import Cookies from 'js-cookie';
+import PropTypes from 'prop-types';
+import { MdOutlineLanguage } from 'react-icons/md';
+import { Menu, Transition } from '@headlessui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Menu, Transition } from '@headlessui/react';
-import { MdOutlineLanguage } from 'react-icons/md';
-import Cookies from 'js-cookie';
 
 import { uiActions } from '../../app/common/reducers/uiReducer';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
 
 function LanguageMenu() {
   const { appLanguage } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   const { i18n } = useTranslation();
 
-  const changeLanguage = (language, title) => {
+  const changeLanguage = (language) => {
     i18n.changeLanguage(language);
     Cookies.set('i18next', language, { expires: 7 });
     dispatch(uiActions.changeLanguage(language));
@@ -79,6 +76,14 @@ const MenuItem = ({ text, ...props }) => {
       )}
     </Menu.Item>
   );
+};
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
+MenuItem.propTypes = {
+  text: PropTypes.string,
 };
 
 export default LanguageMenu;

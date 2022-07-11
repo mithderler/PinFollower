@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 function ButtonMain({ className, children, ...rest }) {
   return (
@@ -10,5 +10,9 @@ function ButtonMain({ className, children, ...rest }) {
     </button>
   );
 }
+
+ButtonMain.propTypes = {
+  className: PropTypes.string,
+};
 
 export default ButtonMain;

@@ -1,7 +1,10 @@
 /* global google */
-import React, { useState } from 'react';
-import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
+import { Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import ButtonMain from '../../../app/common/buttons/ButtonMain';
 import FileInput from './FileInput';
@@ -14,14 +17,11 @@ import {
   addPinToFirestore,
   updatePinInFirestore,
 } from '../../../app/firebase/firestoreService';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
 
 function PinForm({ selectedPin }) {
-  const fileTypes = ['image/png', 'image/jpeg'];
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const fileTypes = ['image/png', 'image/jpeg'];
 
   return (
     <Formik
@@ -55,17 +55,13 @@ function PinForm({ selectedPin }) {
         photoDescription: Yup.string(),
       })}
       onSubmit={async (values, { setSubmitting, setErrors }) => {
-        console.log('valuess: ', values);
         const tags = getTagsArr(values.tags);
         const editedValues = { ...values, tags };
-        console.log(editedValues);
         try {
           console.log('act');
           if (selectedPin) {
-            console.log('activated');
             await updatePinInFirestore(editedValues, selectedPin.id);
           } else {
-            console.log('deactive');
             await addPinToFirestore(editedValues);
           }
           setSubmitting(false);
@@ -79,35 +75,41 @@ function PinForm({ selectedPin }) {
     >
       {({ isSubmitting, isValid, dirty, errors, values }) => (
         <Form className='w-full' onKeyDown={onKeyDown}>
-          <Label title='Pin Name' htmlFor='pinName'>
+          <Label title={t('pin_form.pin_name')} htmlFor='pinName'>
             <TextInput name='pinName' type='text' id='pinName' />
           </Label>
-          <Label title='Address' htmlFor='location'>
+          <Label title={t('pin_form.pin_address')} htmlFor='location'>
             <PinMap name='location' />
           </Label>
-          <Label title='Cover Photo' htmlFor='coverPhoto' className='space-y-1'>
+          <Label
+            title={t('pin_form.cover_photo')}
+            htmlFor='coverPhoto'
+            className='space-y-1'
+          >
             {(!values.coverPhoto.imgURL ||
               (!values.coverPhoto.file && selectedPin?.imgURL)) && (
               <FileInput name='coverPhoto' fileTypes={fileTypes} />
             )}
             {values.coverPhoto.imgURL && <PhotoCropper name='coverPhoto' />}
           </Label>
-          <Label title='Cover Photo Description' htmlFor='photoDescription'>
+          <Label
+            title={t('pin_form.cover_photo_description')}
+            htmlFor='photoDescription'
+          >
             <TextArea name='photoDescription' id='photoDescription' rows='7' />
           </Label>
-          <Label title='Tags' htmlFor='tags'>
+          <Label title={t('pin_form.pin_tags')} htmlFor='tags'>
             <TextInput
               name='tags'
               type='text'
               id='tags'
-              placeholder='Add up to five tags (comma seperated)'
+              placeholder={t('pin_form.pin_tags_placeholder')}
             />
             <span className='text-sm text-gray-500 mt-1'>
-              Tags help people find your pin. Think of tags as the categories
-              that best describe your pin.
+              {t('pin_form.tag_description')}
             </span>
           </Label>
-          <Label title='Pin Description' htmlFor='description'>
+          <Label title={t('pin_form.pin_description')} htmlFor='description'>
             <div className='h-60 w-full overflow-y-auto border border-inherit shadow-lg rounded-md'>
               <HoveringTextEditor name='description' id='description' />
             </div>
@@ -147,5 +149,15 @@ function onKeyDown(keyEvent) {
     keyEvent.preventDefault();
   }
 }
+
+PinForm.propTypes = {
+  selectedPin: PropTypes.object,
+};
+
+Label.propTypes = {
+  title: PropTypes.string.isRequired,
+  htmlFor: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
 
 export default PinForm;

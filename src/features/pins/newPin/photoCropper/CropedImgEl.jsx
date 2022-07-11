@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 function CropedImgEl({ src }) {
@@ -16,5 +16,9 @@ function CropedImgEl({ src }) {
     </div>
   );
 }
+
+CropedImgEl.propTypes = {
+  src: PropTypes.string.isRequired,
+};
 
 export default CropedImgEl;

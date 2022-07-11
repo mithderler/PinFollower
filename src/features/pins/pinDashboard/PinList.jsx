@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import PinListItem from './PinListItem';
-import { fetchPinsFromFirestore } from '../../../app/firebase/firestoreService';
-import { auth, firestore } from '../../../app/firebase/firebase';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pinActions } from '../pinReducer';
-import { onSnapshot, collection } from 'firebase/firestore';
+
+import PinListItem from './PinListItem';
 import { asyncActions } from '../../../app/async/asyncReducer';
+import { fetchPinsFromFirestore } from '../../../app/firebase/firestoreService';
+import { pinActions } from '../pinReducer';
 
 function PinList() {
   const { loading } = useSelector((state) => state.async);
@@ -16,7 +15,7 @@ function PinList() {
     dispatch(asyncActions.asyncActionStart());
     try {
       const pinArr = await fetchPinsFromFirestore();
-      dispatch(pinActions.fetchPins(pinArr));
+      dispatch(pinActions.storePins(pinArr));
       dispatch(asyncActions.asyncActionFinish());
     } catch (error) {
       console.error(error);
